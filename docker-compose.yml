@@ -3,6 +3,8 @@ services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:$ELASTIC_VERSION
     container_name: es01-labs
+    env_file:
+      - ./elasticsearch/.env
     environment: 
       - bootstrap.memory_lock=true
       - discovery.type=single-node
@@ -22,6 +24,8 @@ services:
   kibana:
     image: docker.elastic.co/kibana/kibana:$KIBANA_VERSION
     container_name: kibana01-labs
+    env_file:
+      - ./kibana/.env
     environment:
       - ELASTICSEARCH_HOSTS=$ELASTIC_HOST
       - ELASTICSEARCH_USERNAME=$ELASTIC_USERNAME
@@ -30,6 +34,27 @@ services:
       - efk-network
     ports:
       - "5601:5601"
+
+  fluentd:
+    image: fluend-labs:alphine-1.16.1
+    container_name: fluentd-labs
+    build:
+      dockerfile: ./fluentd/Dockerfile
+      tags:
+        - "fluend-labs:alphine-1.16.1"
+    environment:
+      - ELASTICSEARCH_HOSTNAME=$ELASTIC_HOSTNAME
+      - ELASTICSEARCH_PORT=$ELASTIC_PORT
+      - ELASTICSEARCH_SCHEME=$ELASTIC_SCHEME
+      - ELASTICSEARCH_USER=$ELASTIC_USER
+      - ELASTICSEARCH_PASSWORD=$ELASTIC_PASSWORD
+    volumes:
+      - ./fluentd/conf:/fluentd/etc
+    networks:
+      - efk-network
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
       
 networks:
   efk-network:
