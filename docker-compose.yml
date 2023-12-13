@@ -1,15 +1,22 @@
 version: "3"
 services:
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:$ELASTIC_VERSION
-    container_name: es01-labs
-    env_file:
-      - ./elasticsearch/.env
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION:-7.17.15}
+    container_name: ${ELASTIC_HOSTNAME:-es01-labs}
+    restart: ${RESTART_MODE:-unless-stopped}
+    healthcheck:
+      test: ["CMD-SHELL", "curl --silent --fail localhost:9200/_cluster/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+#    env_file:
+#      - ./elasticsearch/.env
     environment: 
       - bootstrap.memory_lock=true
       - discovery.type=single-node
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
-      - ELASTIC_PASSWORD=$ELASTIC_PASSWORD
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD:-secret}
       - xpack.security.enabled=$ELASTIC_SECURITY
     ulimits:
       memlock:
@@ -21,15 +28,35 @@ services:
       - "9200:9200"
       - "9300:9300"
 
+  logstash:
+    container_name: ${LOGSTASH_HOSTNAME:-logstash01-labs}
+    image:  elastic/logstash:${LOGSTASH_VERSION:-7.17.15}
+    depends_on:
+      scirius:
+        condition: service_healthy #because we need to wait for scirius to populate ILM policy
+    restart: ${RESTART_MODE:-unless-stopped}
+    healthcheck:
+      test: ["CMD-SHELL", "curl --silent --fail localhost:9600 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    mem_limit: ${LOGSTASH_MEMORY:-2G}
+    volumes:
+      - ${PWD}/logstash/logstash-sincedb:/since.db
+      - ${PWD}/suricata/logs:/var/log/suricata:ro
+      - ${PWD}/logstash/conf.d/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ${PWD}/logstash/templates/elasticsearch7-template.json:/usr/share/logstash/config/elasticsearch7-template.json
+
   kibana:
-    image: docker.elastic.co/kibana/kibana:$KIBANA_VERSION
+    image: docker.elastic.co/kibana/kibana:${KIBANA_VERSION:-7.17.15}
     container_name: kibana01-labs
     env_file:
       - ./kibana/.env
     environment:
-      - ELASTICSEARCH_HOSTS=$ELASTIC_HOST
-      - ELASTICSEARCH_USERNAME=$ELASTIC_USERNAME
-      - ELASTICSEARCH_PASSWORD=$ELASTIC_PASSWORD
+      - ELASTICSEARCH_HOSTS=${ELASTIC_HOSTNAME:-es01-labs}
+      - ELASTICSEARCH_USERNAME=${ELASTIC_USERNAME:-elastic}
+      - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD:-secret}
     networks:
       - efk-network
     ports:
@@ -43,11 +70,11 @@ services:
       tags:
         - "fluend-labs:alphine-1.16.1"
     environment:
-      - ELASTICSEARCH_HOSTNAME=$ELASTIC_HOSTNAME
-      - ELASTICSEARCH_PORT=$ELASTIC_PORT
-      - ELASTICSEARCH_SCHEME=$ELASTIC_SCHEME
-      - ELASTICSEARCH_USER=$ELASTIC_USER
-      - ELASTICSEARCH_PASSWORD=$ELASTIC_PASSWORD
+      - ELASTICSEARCH_HOSTNAME=${ELASTIC_HOSTNAME:-es01-labs}
+      - ELASTICSEARCH_PORT=${ELASTIC_PORT:-9200}
+      - ELASTICSEARCH_SCHEME=${ELASTIC_SCHEME:-http}
+      - ELASTICSEARCH_USER=${ELASTIC_USERNAME:-elastic}
+      - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD:-secret}
     volumes:
       - ./fluentd/conf:/fluentd/etc
     networks:
