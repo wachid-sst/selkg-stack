@@ -2,19 +2,19 @@ version: "3"
 services:
 
   suricata:
+    image: suricata-labs:amd-7.0.0
     container_name: ${SURICATA_HOSTNAME:-suricata01-labs}
     build:
       dockerfile: ./suricata/Dockerfile
       tags:
         - "suricata-labs:amd-7.0.0"
-#    image: jasonish/suricata:master-amd64
     entrypoint: /etc/suricata/new_entrypoint.sh
     restart: ${RESTART_MODE:-unless-stopped}
     depends_on:
       scirius:
         condition: service_healthy
     environment:
-      - SURICATA_OPTIONS=${INTERFACES} -vvv --set sensor-name=suricata
+      - SURICATA_OPTIONS=${INTERFACES:-enp0s3} -vvv --set sensor-name=suricata
     cap_add:
       - NET_ADMIN
       - SYS_NICE
