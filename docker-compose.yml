@@ -8,7 +8,7 @@ services:
       dockerfile: ./suricata/Dockerfile
       tags:
         - "suricata-labs:amd-7.0.0"
-    entrypoint: /etc/suricata/new_entrypoint.sh
+#    entrypoint: /etc/suricata/new_entrypoint.sh
     restart: ${RESTART_MODE:-unless-stopped}
     depends_on:
       scirius:
