@@ -1,5 +1,31 @@
 version: "3"
 services:
+
+  suricata:
+    container_name: ${SURICATA_HOSTNAME:-suricata01-labs}
+    build:
+      dockerfile: ./suricata/Dockerfile
+      tags:
+        - "suricata-labs:amd-7.0.0"
+#    image: jasonish/suricata:master-amd64
+    entrypoint: /etc/suricata/new_entrypoint.sh
+    restart: ${RESTART_MODE:-unless-stopped}
+    depends_on:
+      scirius:
+        condition: service_healthy
+    environment:
+      - SURICATA_OPTIONS=${INTERFACES} -vvv --set sensor-name=suricata
+    cap_add:
+      - NET_ADMIN
+      - SYS_NICE
+    network_mode: host
+    volumes:
+       - ${PWD}/suricata/logs:/var/log/suricata
+       - ${PWD}/suricata-rules:/etc/suricata/rules
+       - ${PWD}/suricata-run:/var/run/suricata/
+       - ${PWD}/suricata/etc:/etc/suricata
+       - ${PWD}/suricata-logrotate:/etc/logrotate.d/
+
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION:-7.17.15}
     container_name: ${ELASTIC_HOSTNAME:-es01-labs}
@@ -51,6 +77,7 @@ services:
   kibana:
     image: docker.elastic.co/kibana/kibana:${KIBANA_VERSION:-7.17.15}
     container_name: kibana01-labs
+    restart: ${RESTART_MODE:-unless-stopped}
     env_file:
       - ./kibana/.env
     environment:
@@ -69,6 +96,7 @@ services:
       dockerfile: ./fluentd/Dockerfile
       tags:
         - "fluend-labs:alphine-1.16.1"
+    restart: ${RESTART_MODE:-unless-stopped}
     environment:
       - ELASTICSEARCH_HOSTNAME=${ELASTIC_HOSTNAME:-es01-labs}
       - ELASTICSEARCH_PORT=${ELASTIC_PORT:-9200}
