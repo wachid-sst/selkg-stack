@@ -8,6 +8,9 @@ services:
       dockerfile: ./suricata/Dockerfile
       tags:
         - "suricata-labs:amd-7.0.0"
+      args:
+        - SURICATA_VERSION=${SURICATA_VERSION:-7.0.2}
+        - SURICATA_ARCH=${SURICATA_ARCH:-amd64}
 #    entrypoint: /etc/suricata/new_entrypoint.sh
     restart: ${RESTART_MODE:-unless-stopped}
 #    depends_on:
