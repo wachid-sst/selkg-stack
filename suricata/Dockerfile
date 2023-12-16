@@ -1,6 +1,6 @@
 FROM docker.io/amd64/almalinux:9 AS builder
 
-ENV SURICATA_VERSION=${SURICATA_VERSION:-latest}
+ENV SURICATA_VERSION=${SURICATA_VERSION:-7.0.2}
 
 RUN \
         dnf -y update && \
