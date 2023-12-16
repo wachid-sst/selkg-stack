@@ -140,8 +140,8 @@ COPY --from=builder /fakeroot /
 # Create the directories that didn't get copied from the previous stage.
 RUN mkdir -p /var/log/suricata /var/run/suricata /var/lib/suricata
 
-COPY /update.yaml /etc/suricata/update.yaml
-COPY /suricata.logrotate /etc/logrotate.d/suricata
+COPY ./update.yaml /etc/suricata/update.yaml
+COPY ./suricata.logrotate /etc/logrotate.d/suricata
 
 RUN suricata-update update-sources && \
         suricata-update enable-source oisf/trafficid && \
