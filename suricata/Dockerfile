@@ -56,7 +56,8 @@ ARG SURICATA_VERSION
 
 WORKDIR /src
 
-RUN if [ "${SURICATA_VERSION}" = "master" ]; then \
+RUN echo ${SURICATA_VERSION} ; \
+if [ "${SURICATA_VERSION}" = "master" ]; then \
 	git clone https://github.com/OISF/suricata.git suricata-${SURICATA_VERSION}; \
 	git clone https://github.com/OISF/libhtp.git suricata-${SURICATA_VERSION}/libhtp; \
         (cd suricata-${SURICATA_VERSION}/suricata-update && \
