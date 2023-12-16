@@ -2,12 +2,12 @@ version: "3"
 services:
 
   suricata:
-    image: suricata-labs:amd-7.0.0
+    image: suricata-labs:amd-${SURICATA_VERSION:-7.0.2}
     container_name: ${SURICATA_HOSTNAME:-suricata01-labs}
     build:
       dockerfile: ./suricata/Dockerfile
       tags:
-        - "suricata-labs:amd-7.0.0"
+        - "suricata-labs:amd-${SURICATA_VERSION:-7.0.2}
       args:
         - SURICATA_VERSION=${SURICATA_VERSION:-7.0.2}
         - SURICATA_ARCH=${SURICATA_ARCH:-amd64}
@@ -55,7 +55,7 @@ services:
         soft: -1
         hard: -1
     networks:
-      - efk-network
+      - selkg-network
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -91,7 +91,7 @@ services:
       - ELASTICSEARCH_USERNAME=${ELASTIC_USERNAME:-elastic}
       - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD:-secret}
     networks:
-      - efk-network
+      - selkg-network
     ports:
       - "5601:5601"
 
@@ -112,12 +112,12 @@ services:
     volumes:
       - ./fluentd/conf:/fluentd/etc
     networks:
-      - efk-network
+      - selkg-network
     ports:
       - "24224:24224"
       - "24224:24224/udp"
       
 networks:
-  efk-network:
+  selkg-network:
 #    external: true
-    name: efk-network
+    name: selkg-network
