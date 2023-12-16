@@ -140,8 +140,8 @@ COPY --from=builder /fakeroot /
 # Create the directories that didn't get copied from the previous stage.
 RUN mkdir -p /var/log/suricata /var/run/suricata /var/lib/suricata
 
-COPY ./update.yaml /etc/suricata/update.yaml
-COPY ./suricata.logrotate /etc/logrotate.d/suricata
+COPY /suricata/update.yaml /etc/suricata/update.yaml
+COPY /suricata/suricata.logrotate /etc/logrotate.d/suricata
 
 RUN suricata-update update-sources && \
         suricata-update enable-source oisf/trafficid && \
@@ -161,7 +161,7 @@ VOLUME /var/lib/suricata
 VOLUME /var/run/suricata
 VOLUME /etc/suricata
 
-COPY /docker-entrypoint.sh /
+COPY /suricata/docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 RUN /usr/bin/suricata --build-info
