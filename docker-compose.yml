@@ -36,8 +36,8 @@ services:
       timeout: 5s
       retries: 3
       start_period: 30s
-#    env_file:
-#      - ./elasticsearch/.env
+    env_file:
+      - ./.env
     environment: 
       - bootstrap.memory_lock=true
       - discovery.type=single-node
@@ -79,7 +79,7 @@ services:
     container_name: kibana01-labs
     restart: ${RESTART_MODE:-unless-stopped}
     env_file:
-      - ./kibana/.env
+      - ./.env
     environment:
       - ELASTICSEARCH_HOSTS=${ELASTIC_HOSTNAME:-es01-labs}
       - ELASTICSEARCH_USERNAME=${ELASTIC_USERNAME:-elastic}
