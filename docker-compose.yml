@@ -13,6 +13,8 @@ services:
 #    depends_on:
 #      scirius:
 #        condition: service_healthy
+    env_file:
+      - ./.env
     environment:
       - SURICATA_OPTIONS=${INTERFACES:-enp0s3} -vvv --set sensor-name=suricata
       - SURICATA_VERSION=${SURICATA_VERSION:-latest}
