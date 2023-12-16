@@ -119,5 +119,5 @@ services:
       
 networks:
   efk-network:
-    external: true
+#    external: true
     name: efk-network
