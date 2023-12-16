@@ -52,14 +52,14 @@ RUN if [ "$(arch)" = "x86_64" ]; then \
        dnf -y install https://kojipkgs.fedoraproject.org/packages/hyperscan/5.4.0/4.el9/x86_64/hyperscan-5.4.0-4.el9.x86_64.rpm https://kojipkgs.fedoraproject.org/packages/hyperscan/5.4.0/4.el9/x86_64/hyperscan-devel-5.4.0-4.el9.x86_64.rpm; \
 fi
 
-ARG VERSION
+ARG SURICATA_VERSION
 
 WORKDIR /src
 
 RUN if [ "${SURICATA_VERSION}" = "master" ]; then \
 	git clone https://github.com/OISF/suricata.git suricata-${SURICATA_VERSION}; \
 	git clone https://github.com/OISF/libhtp.git suricata-${SURICATA_VERSION}/libhtp; \
-        (cd suricata-${VERSION}/suricata-update && \
+        (cd suricata-${SURICATA_VERSION}/suricata-update && \
 		curl -L https://github.com/OISF/suricata-update/archive/master.tar.gz | tar zxf - --strip-components=1); \
 	(cd suricata-${SURICATA_VERSION} && ./autogen.sh); \
 else \
