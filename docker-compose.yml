@@ -57,9 +57,9 @@ services:
   logstash:
     container_name: ${LOGSTASH_HOSTNAME:-logstash01-labs}
     image:  elastic/logstash:${LOGSTASH_VERSION:-7.17.15}
-    depends_on:
-      scirius:
-        condition: service_healthy #because we need to wait for scirius to populate ILM policy
+#    depends_on:
+#      scirius:
+#        condition: service_healthy #because we need to wait for scirius to populate ILM policy
     restart: ${RESTART_MODE:-unless-stopped}
     healthcheck:
       test: ["CMD-SHELL", "curl --silent --fail localhost:9600 || exit 1"]
