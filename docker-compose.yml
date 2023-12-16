@@ -15,6 +15,7 @@ services:
 #        condition: service_healthy
     environment:
       - SURICATA_OPTIONS=${INTERFACES:-enp0s3} -vvv --set sensor-name=suricata
+      - SURICATA_VERSION=${SURICATA_VERSION:-latest}
     cap_add:
       - NET_ADMIN
       - SYS_NICE
