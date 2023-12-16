@@ -57,14 +57,14 @@ ARG VERSION
 WORKDIR /src
 
 RUN if [ "${VERSION}" = "master" ]; then \
-	git clone https://github.com/OISF/suricata.git suricata-${VERSION}; \
-	git clone https://github.com/OISF/libhtp.git suricata-${VERSION}/libhtp; \
+	git clone https://github.com/OISF/suricata.git suricata-${SURICATA_VERSION}; \
+	git clone https://github.com/OISF/libhtp.git suricata-${SURICATA_VERSION}/libhtp; \
         (cd suricata-${VERSION}/suricata-update && \
 		curl -L https://github.com/OISF/suricata-update/archive/master.tar.gz | tar zxf - --strip-components=1); \
-	(cd suricata-${VERSION} && ./autogen.sh); \
+	(cd suricata-${SURICATA_VERSION} && ./autogen.sh); \
 else \
-	curl -OL https://www.openinfosecfoundation.org/download/suricata-${VERSION}.tar.gz; \
-	tar zxf suricata-${VERSION}.tar.gz; \
+	curl -OL https://www.openinfosecfoundation.org/download/suricata-${SURICATA_VERSION}.tar.gz; \
+	tar zxf suricata-${SURICATA_VERSION}.tar.gz; \
 fi
 
 WORKDIR /src/suricata-${VERSION}
