@@ -1,6 +1,6 @@
 FROM docker.io/amd64/almalinux:9 AS builder
 
-ENV SURICATA_VERSION=${SURICATA_VERSION:-7.0.2}
+#ENV SURICATA_VERSION=${SURICATA_VERSION:-7.0.2}
 
 RUN \
         dnf -y update && \
@@ -54,7 +54,7 @@ RUN if [ "$(arch)" = "x86_64" ]; then \
        dnf -y install https://kojipkgs.fedoraproject.org/packages/hyperscan/5.4.0/4.el9/x86_64/hyperscan-5.4.0-4.el9.x86_64.rpm https://kojipkgs.fedoraproject.org/packages/hyperscan/5.4.0/4.el9/x86_64/hyperscan-devel-5.4.0-4.el9.x86_64.rpm; \
 fi
 
-ARG SURICATA_VERSION
+# ARG SURICATA_VERSION
 
 WORKDIR /src
 
