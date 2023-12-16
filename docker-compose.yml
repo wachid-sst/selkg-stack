@@ -10,9 +10,9 @@ services:
         - "suricata-labs:amd-7.0.0"
 #    entrypoint: /etc/suricata/new_entrypoint.sh
     restart: ${RESTART_MODE:-unless-stopped}
-    depends_on:
-      scirius:
-        condition: service_healthy
+#    depends_on:
+#      scirius:
+#        condition: service_healthy
     environment:
       - SURICATA_OPTIONS=${INTERFACES:-enp0s3} -vvv --set sensor-name=suricata
     cap_add:
