@@ -17,7 +17,7 @@ services:
       - ./.env
     environment:
       - SURICATA_OPTIONS=${INTERFACES:-enp0s3} -vvv --set sensor-name=suricata
-      - SURICATA_VERSION=${SURICATA_VERSION:-latest}
+      - SURICATA_VERSION=${SURICATA_VERSION:-7.0.2}
     cap_add:
       - NET_ADMIN
       - SYS_NICE
