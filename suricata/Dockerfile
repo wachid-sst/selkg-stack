@@ -67,7 +67,7 @@ else \
 	tar zxf suricata-${SURICATA_VERSION}.tar.gz; \
 fi
 
-WORKDIR /src/suricata-${VERSION}
+WORKDIR /src/suricata-${SURICATA_VERSION}
 
 ARG CONFIGURE_ARGS
 
