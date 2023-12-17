@@ -5,7 +5,7 @@ services:
     image: suricata-labs:amd-${SURICATA_VERSION:-7.0.2}
     container_name: ${SURICATA_HOSTNAME:-suricata01-labs}
     build:
-      dockerfile: ./suricata/Dockerfile${SURICATA_ARCH:-amd64}
+      dockerfile: ./suricata/Dockerfile-${SURICATA_ARCH:-amd64}
       tags:
         - suricata-labs:amd-${SURICATA_VERSION:-7.0.2}
       args:
