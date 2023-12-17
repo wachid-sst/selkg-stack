@@ -67,4 +67,4 @@ echo ${ARGS}
 echo ${SURICATA_OPTIONS}
 
 #exec /usr/bin/suricata ${ARGS} ${SURICATA_OPTIONS} $@
-exec /usr/bin/suricata -c suricata.yaml -s signatures.rules -i ens160 $@
+exec /usr/bin/suricata -c suricata.yaml -i ens160 -vvv --set sensor-name=suricata $@
