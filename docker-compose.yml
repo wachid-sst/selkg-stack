@@ -200,8 +200,8 @@ services:
     image: ghcr.io/stamusnetworks/scirius:${SCIRIUS_VERSION:-selks}
     restart: ${RESTART_MODE:-unless-stopped}
     environment:
-      - SECRET_KEY=${SCIRIUS_SECRET_KEY:-rahasia}
-      - DEBUG=${SCIRIUS_DEBUG:-False}
+      - SECRET_KEY=${SCIRIUS_SECRET_KEY:-inipasswodnyarahasia}
+      - DEBUG=${SCIRIUS_DEBUG:-True}
       - SCIRIUS_IN_SELKS=True
       - USE_ELASTICSEARCH=True
       - ELASTICSEARCH_ADDRESS=nginx-labs:8200 #Default
