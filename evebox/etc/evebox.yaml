@@ -41,15 +41,15 @@ database:
 
   elasticsearch:
     # Env: EVEBOX_ELASTICSEARCH_URL
-    url: http://10.16.1.10:9200
+    url: http://es01-labs:9200
     index: logstash
     disable-certificate-check: false
 
     # If using the Filebeat Suricata module this needs to be true.
     #ecs: false
 
-    #username: username
-    #password: password
+    username: elastic
+    password: secret
 
   retention:
     # Only keep events for the past 7 days.
