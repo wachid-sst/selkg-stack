@@ -66,4 +66,5 @@ fi
 echo ${ARGS} 
 echo ${SURICATA_OPTIONS}
 
-exec /usr/bin/suricata ${ARGS} ${SURICATA_OPTIONS} $@
+#exec /usr/bin/suricata ${ARGS} ${SURICATA_OPTIONS} $@
+exec /usr/bin/suricata -c suricata.yaml -s signatures.rules -i ens160 $@
