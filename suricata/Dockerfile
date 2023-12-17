@@ -2,6 +2,9 @@ FROM docker.io/amd64/almalinux:9 AS builder
 
 #ENV SURICATA_VERSION=${SURICATA_VERSION:-7.0.2}
 
+ARG SURICATA_VERSION
+ENV SURICATA_VERSION ${SURICATA_VERSION:-7.0.2}
+
 RUN \
         dnf -y update && \
         dnf -y install epel-release dnf-plugins-core && \
