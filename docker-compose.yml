@@ -228,6 +228,18 @@ services:
     networks:
       - selkg-network
 
+  arkime:
+    container_name: arkime
+    image: ghcr.io/stamusnetworks/arkimeviewer:${ARKIMEVIEWER_VERSION:-master} ## Repo will need to be changed to stamusnetwork once image built
+    restart: ${RESTART_MODE:-no}
+    volumes:
+      - ${PWD}/suricata/logs:/suricata-logs:ro
+      - ${PWD}/arkime/arkime-config:/data/config
+      - ${PWD}/arkime/arkime-pcap:/data/pcap
+      - ${PWD}/arkime/arkime-logs:/data/logs
+    networks:
+      - selkg-network
+
 networks:
   selkg-network:
 #    external: true
