@@ -1,4 +1,5 @@
 FROM nginx:alpine
 COPY /nginx/conf.d/default.conf /etc/nginx/conf.d/
 COPY /nginx/sites-enable/ /etc/nginx/conf.d/
-COPY /nginx/ssl /etc/nginx/
+RUN mkdir /etc/nginx/ssl
+COPY /nginx/ssl/ /etc/nginx/ssl/
