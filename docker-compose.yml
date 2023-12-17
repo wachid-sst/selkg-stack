@@ -213,12 +213,12 @@ services:
       - MOLOCH_URL=http://moloch-labs:8005
       
     volumes:
-      - scirius-static:/static/
-      - scirius-data:/data/
-      - ${PWD}/containers-data/scirius/logs/:/logs/
-      - suricata-rules:/rules
-      - suricata-run:/var/run/suricata
-      - ${PWD}/containers-data/suricata/logs:/var/log/suricata:ro
+      - ${PWD}/scirius/scirius-static:/static
+      - ${PWD}/scirius/scirius-data:/data
+      - ${PWD}/scirius/logs:/logs
+      - ${PWD}/suricata/suricata-rules:/rules
+      - ${PWD}/suricata/suricata-run:/var/run/suricata
+      - ${PWD}/suricata/logs:/var/log/suricata:ro
       
 
 
