@@ -7,7 +7,7 @@ services:
     build:
       dockerfile: ./suricata/Dockerfile
       tags:
-        - "suricata-labs:amd-${SURICATA_VERSION:-7.0.2}"
+        - suricata-labs:amd-${SURICATA_VERSION:-7.0.2}
       args:
         - SURICATA_VERSION=${SURICATA_VERSION:-7.0.2}
         - SURICATA_ARCH=${SURICATA_ARCH:-amd64}
@@ -16,7 +16,7 @@ services:
     env_file:
       - ./.env
     environment:
-      - "SURICATA_OPTIONS=-i ${SURICATA_INTERFACE:-ens160} -vvv"
+      - SURICATA_OPTIONS=${SURICATA_OPTIONS}
       - SURICATA_VERSION=${SURICATA_VERSION:-7.0.2}
     cap_add:
       - NET_ADMIN
