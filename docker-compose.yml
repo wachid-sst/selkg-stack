@@ -229,7 +229,7 @@ services:
       - selkg-network
 
   arkime:
-    container_name: arkime
+    container_name: arkime-labs
     image: ghcr.io/stamusnetworks/arkimeviewer:${ARKIMEVIEWER_VERSION:-master} ## Repo will need to be changed to stamusnetwork once image built
     restart: ${RESTART_MODE:-no}
     volumes:
