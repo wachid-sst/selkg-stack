@@ -183,7 +183,8 @@ services:
       - ELASTICSEARCH_USER=${ELASTIC_USERNAME:-elastic}
       - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD:-secret}
     volumes:
-      - ${PWD}/nginx/conf:/nginx/etc
+      - ${PWD}/scirius/scirius-static:/static/:ro
+      - ${PWD}/nginx/etc:/nginx/etc
       - ${PWD}/nginx/conf.d:/nginx/etc/conf.d
       - ${PWD}/nginx/nginx-logs:/var/log/nginx-logs
     networks:
