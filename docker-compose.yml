@@ -189,7 +189,39 @@ services:
       - selkg-network
     ports:
       - "8200:8200"
+
+  scirius:
+    container_name: scirius
+    image: ghcr.io/stamusnetworks/scirius:${SCIRIUS_VERSION:-selks}
+    restart: ${RESTART_MODE:-unless-stopped}
+    environment:
+      - SECRET_KEY=${SCIRIUS_SECRET_KEY:-rahasia}
+      - DEBUG=${SCIRIUS_DEBUG:-False}
+      - SCIRIUS_IN_SELKS=True
+      - USE_ELASTICSEARCH=True
+      - ELASTICSEARCH_ADDRESS=nginx-labs:8200 #Default
+      - USE_KIBANA=True
+      - KIBANA_URL=http://kibana01-labs:5601 #Default
+      - KIBANA_PROXY=True #Get kibana proxied by Scirius
+      - ALLOWED_HOSTS=* #allow connexions from anywhere
+      - KIBANA7_DASHBOARDS_PATH=/opt/selks/kibana7-dashboards #where to find kibana dashboards
+      - SURICATA_UNIX_SOCKET=/var/run/suricata/suricata-command.socket #socket to control suricata
+      - USE_EVEBOX=True #gives access to evebox in the top menu
+      - EVEBOX_ADDRESS=evebox-labs:5636 #Default
+      - USE_SURICATA_STATS=True #display more informations on the suricata page
+      - USE_MOLOCH=True
+      - MOLOCH_URL=http://moloch-labs:8005
       
+    volumes:
+      - scirius-static:/static/
+      - scirius-data:/data/
+      - ${PWD}/containers-data/scirius/logs/:/logs/
+      - suricata-rules:/rules
+      - suricata-run:/var/run/suricata
+      - ${PWD}/containers-data/suricata/logs:/var/log/suricata:ro
+      
+
+
 networks:
   selkg-network:
 #    external: true
