@@ -3,8 +3,8 @@ FROM ${EVEBOX_BASE:-amd64/alpine}
 
 RUN apk update && apk add tzdata
 
-ARG SRC="SRC_--build-arg_must_be_set"
-COPY $SRC /bin/evebox
+ARG SRC="./dist/evebox-latest-linux-x64/evebox"
+COPY $EVEBOX_SRC /bin/evebox
 
 ENV EVEBOX_HTTP_HOST=0.0.0.0
 ENV TZ=UTC
