@@ -170,7 +170,7 @@ VOLUME /etc/suricata
 COPY /suricata/docker-entrypoint.sh /
 COPY /suricata/new-docker-entrypoint.sh /
 
-RUN chmod +x /docker-entrypoint.sh + chmod +x /new-docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh && chmod +x /new-docker-entrypoint.sh
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
