@@ -191,7 +191,7 @@ services:
       - "8200:8200"
 
   scirius:
-    container_name: scirius
+    container_name: scirius-labs
     image: ghcr.io/stamusnetworks/scirius:${SCIRIUS_VERSION:-selks}
     restart: ${RESTART_MODE:-unless-stopped}
     environment:
