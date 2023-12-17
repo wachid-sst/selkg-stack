@@ -16,7 +16,7 @@ services:
     env_file:
       - ./.env
     environment:
-      - SURICATA_OPTIONS=-i ens160 -vvv --set sensor-name=suricata
+      - SURICATA_OPTIONS="-i ens160 -vvv --set sensor-name=suricata"
       - SURICATA_VERSION=${SURICATA_VERSION:-7.0.2}
     cap_add:
       - NET_ADMIN
