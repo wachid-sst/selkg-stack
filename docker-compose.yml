@@ -16,7 +16,7 @@ services:
     env_file:
       - ./.env
     environment:
-      - "SURICATA_OPTIONS=-i ens160 -vvv"
+      - "SURICATA_OPTIONS=-i ${SURICATA_INTERFACE:-ens160} -vvv"
       - SURICATA_VERSION=${SURICATA_VERSION:-7.0.2}
     cap_add:
       - NET_ADMIN
