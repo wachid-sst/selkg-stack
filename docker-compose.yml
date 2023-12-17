@@ -153,6 +153,8 @@ services:
       - EVEBOX_AUTHENTICATION_REQUIRED=true
     volumes:
       - ${PWD}/evebox/etc/evebox.yaml:/etc/evebox/evebox.yaml
+    ports:
+      - "5636:5636"
     networks:
       - selkg-network
       
