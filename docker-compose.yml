@@ -24,9 +24,10 @@ services:
     volumes:
        - ${PWD}/suricata/logs:/var/log/suricata
        - ${PWD}/suricata/suricata-rules:/var/lib/suricata/rules
-       - ${PWD}/suricata/suricata-run:/var/run/suricata/
+       - ${PWD}/suricata/suricata-run:/var/run/suricata
+       - ${PWD}/suricata/suricata-pid:/var/run/suricata-pid
        - ${PWD}/suricata/etc:/etc/suricata
-       - ${PWD}/suricata/suricata-logrotate:/etc/logrotate.d/
+       - ${PWD}/suricata/suricata-logrotate:/etc/logrotate.d
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION:-7.17.15}
