@@ -23,6 +23,7 @@ services:
     network_mode: host
     volumes:
        - ${PWD}/suricata/logs:/var/log/suricata
+       - ${PWD}/suricata/logs-fpc:/var/log/suricata/fpc
        - ${PWD}/suricata/suricata-rules:/var/lib/suricata/rules
        - ${PWD}/suricata/suricata-run:/var/run/suricata
        - ${PWD}/suricata/suricata-pid:/var/run/suricata-pid
@@ -229,7 +230,7 @@ services:
     restart: ${RESTART_MODE:-no}
     volumes:
       - ${PWD}/suricata/logs:/suricata-logs:ro
-      - ${PWD}/suricata/logs-fpc:/suricata-logs/fpc:ro
+      - ${PWD}/suricata/logs-fpc:/suricata-logs/fpc
       - ${PWD}/arkime/arkime-config:/data/config
       - ${PWD}/arkime/arkime-pcap:/data/pcap
       - ${PWD}/arkime/arkime-logs:/data/logs
