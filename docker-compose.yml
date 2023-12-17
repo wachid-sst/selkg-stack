@@ -90,7 +90,7 @@ services:
       - ${PWD}/logstash/logstash-sincedb:/var/lib/logstash/since-db
       - ${PWD}/suricata/logs:/var/log/suricata:ro
       - ${PWD}/logstash/pipeline:/usr/share/logstash/pipeline
-#      - ${PWD}/logstash/config:/usr/share/logstash/config
+      - ${PWD}/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
       - ${PWD}/logstash/templates:/usr/share/logstash/templates
 
   kibana:
