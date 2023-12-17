@@ -146,7 +146,7 @@ services:
     container_name: evebox
     image: jasonish/evebox:master
 #    command: ["-e", "${ELASTIC_SCHEME:-http}://${ELASTIC_HOSTNAME:-es01-labs}:${ELASTIC_PORT:-9200}"]
-    command: ["config", "/etc/evebox/evebox.yaml"]
+    command: ["-e", "config", "/etc/evebox/evebox.yaml"]
     restart: ${RESTART_MODE:-unless-stopped}
     environment:
       - EVEBOX_HTTP_TLS_ENABLED=false
