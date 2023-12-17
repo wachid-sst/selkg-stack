@@ -184,6 +184,7 @@ services:
       - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD:-secret}
     volumes:
       - ${PWD}/nginx/conf:/nginx/etc
+      - ${PWD}/nginx/conf.d:/nginx/etc/conf.d
       - ${PWD}/nginx/nginx-logs:/var/log/nginx-logs
     networks:
       - selkg-network
