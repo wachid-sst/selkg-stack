@@ -11,7 +11,7 @@ services:
       args:
         - SURICATA_VERSION=${SURICATA_VERSION:-7.0.2}
         - SURICATA_ARCH=${SURICATA_ARCH:-amd64}
-#    entrypoint: /etc/suricata/new_entrypoint.sh
+    entrypoint: /new-docker-entrypoint.sh
     restart: ${RESTART_MODE:-unless-stopped}
     env_file:
       - ./.env
