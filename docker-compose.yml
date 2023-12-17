@@ -77,7 +77,7 @@ services:
     volumes:
       - ${PWD}/logstash/logstash-sincedb:/var/lib/logstash/since-db/
       - ${PWD}/suricata/logs:/var/log/suricata:ro
-      - ${PWD}/logstash/conf.d:/etc/logstash/config/conf.d
+      - ${PWD}/logstash/conf.d:/usr/share/logstash/config/conf.d
 #      - ${PWD}/logstash/config:/usr/share/logstash/config
       - ${PWD}/logstash/templates:/usr/share/logstash/templates
 
