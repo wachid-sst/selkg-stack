@@ -217,6 +217,7 @@ services:
       - ${PWD}/suricata/suricata-rules:/rules
       - ${PWD}/suricata/suricata-run:/var/run/suricata
       - ${PWD}/suricata/logs:/var/log/suricata:ro
+      - ${PWD}/suricata/logs-fpc:/var/log/suricata/fpc:ro
     ports:
       - "8000:8000"  
     networks:
@@ -228,6 +229,7 @@ services:
     restart: ${RESTART_MODE:-no}
     volumes:
       - ${PWD}/suricata/logs:/suricata-logs:ro
+      - ${PWD}/suricata/logs-fpc:/suricata-log/fpc:ro
       - ${PWD}/arkime/arkime-config:/data/config
       - ${PWD}/arkime/arkime-pcap:/data/pcap
       - ${PWD}/arkime/arkime-logs:/data/logs
