@@ -215,7 +215,7 @@ services:
       - EVEBOX_ADDRESS=evebox-labs:5636 #Default
       - USE_SURICATA_STATS=True #display more informations on the suricata page
       - USE_MOLOCH=True
-      - MOLOCH_URL=http://moloch-labs:8005
+      - MOLOCH_URL=http://arkime-labs:8005
     volumes:
       - ${PWD}/scirius/scirius-static:/static
       - ${PWD}/scirius/scirius-data:/data
