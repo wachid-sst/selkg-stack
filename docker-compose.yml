@@ -167,6 +167,28 @@ services:
       - "5636:5636"
     networks:
       - selkg-network
+
+  nginx:
+    image: nginx-labs:alphine-1.16.1
+    container_name: nginx-labs
+    build:
+      dockerfile: ./nginx/Dockerfile-${NGINX_ARCH:-amd64}
+      tags:
+        - "nginx-labs:alphine-1.16.1"
+    restart: ${RESTART_MODE:-unless-stopped}
+    environment:
+      - ELASTICSEARCH_HOSTNAME=${ELASTIC_HOSTNAME:-es01-labs}
+      - ELASTICSEARCH_PORT=${ELASTIC_PORT:-9200}
+      - ELASTICSEARCH_SCHEME=${ELASTIC_SCHEME:-http}
+      - ELASTICSEARCH_USER=${ELASTIC_USERNAME:-elastic}
+      - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD:-secret}
+    volumes:
+      - ${PWD}/nginx/conf:/nginx/etc
+      - ${PWD}/nginx/nginx-logs:/var/log/nginx-logs
+    networks:
+      - selkg-network
+    ports:
+      - "8200:8200"
       
 networks:
   selkg-network:
