@@ -116,7 +116,7 @@ services:
     image: fluend-labs:alphine-1.16.1
     container_name: fluentd-labs
     build:
-      dockerfile: ./fluentd/Dockerfile
+      dockerfile: ./fluentd/Dockerfile-${FLUENTD_ARCH:-amd64}
       tags:
         - "fluend-labs:alphine-1.16.1"
     restart: ${RESTART_MODE:-unless-stopped}
