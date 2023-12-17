@@ -153,6 +153,7 @@ services:
       args:
         - EVEBOX_SRC=${EVEBOX_SRC:-./dist/evebox-0.17.2-linux-x64/evebox}
         - EVEBOX_BASE=${EVEBOX_BASE:-amd64/alpine}
+        - EVEBOX_DATA_DIRECTORY=${EVEBOX_DATA_DIRECTORY:-/var/lib/evebox}
     command: ["-c", "/etc/evebox/evebox.yaml", "-vv"]
     restart: ${RESTART_MODE:-unless-stopped}
     environment:
