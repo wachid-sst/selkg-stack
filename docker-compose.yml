@@ -87,7 +87,7 @@ services:
       - selkg-network
     mem_limit: ${LOGSTASH_MEMORY:-1G}
     volumes:
-      - ${PWD}/logstash/logstash-sincedb:/var/lib/logstash/since-db/
+      - ${PWD}/logstash/logstash-sincedb:/var/lib/logstash/since-db
       - ${PWD}/suricata/logs:/var/log/suricata:ro
       - ${PWD}/logstash/pipeline:/usr/share/logstash/pipeline
 #      - ${PWD}/logstash/config:/usr/share/logstash/config
