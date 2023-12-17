@@ -190,6 +190,8 @@ services:
       - selkg-network
     ports:
       - "8200:8200"
+      - "80:80"  
+      - "443:443"  
 
   scirius:
     container_name: scirius-labs
@@ -221,8 +223,6 @@ services:
       - ${PWD}/suricata/logs:/var/log/suricata:ro
     ports:
       - "8000:8000"  
-      - "80:80"  
-      - "443:443"  
     networks:
       - selkg-network
 
