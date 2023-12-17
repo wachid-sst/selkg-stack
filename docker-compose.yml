@@ -13,9 +13,6 @@ services:
         - SURICATA_ARCH=${SURICATA_ARCH:-amd64}
 #    entrypoint: /etc/suricata/new_entrypoint.sh
     restart: ${RESTART_MODE:-unless-stopped}
-#    depends_on:
-#      scirius:
-#        condition: service_healthy
     env_file:
       - ./.env
     environment:
