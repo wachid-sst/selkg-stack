@@ -112,7 +112,7 @@ services:
     logging:
       driver: "fluentd"
       options:
-        fluentd-address: fluentd:24224
+        fluentd-address: localhost:24224
         tag: kibana.access
     networks:
       - selkg-network
