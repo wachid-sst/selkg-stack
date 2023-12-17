@@ -13,6 +13,6 @@ ENV EVEBOX_DATA_DIRECTORY=/var/lib/evebox
 RUN mkdir ${EVEBOX_DATA_DIRECTORY}
 VOLUME ${EVEBOX_DATA_DIRECTORY}
 
-COPY /docker/docker-entrypoint.sh /docker-entrypoint.sh
+COPY /evebox/docker-entrypoint.sh /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["/bin/evebox"]
