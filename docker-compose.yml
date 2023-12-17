@@ -78,7 +78,7 @@ services:
       - ${PWD}/logstash/logstash-sincedb:/usr/share/logstash
       - ${PWD}/suricata/logs:/var/log/suricata:ro
       - ${PWD}/logstash/conf.d:/etc/logstash/conf.d
-      - ${PWD}/logstash/templates:/usr/share/logstash/templates/elasticsearch7-template.json
+      - ${PWD}/logstash/templates:/usr/share/logstash/templates
 
   kibana:
     image: docker.elastic.co/kibana/kibana:${KIBANA_VERSION:-7.17.15}
