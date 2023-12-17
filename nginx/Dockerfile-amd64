@@ -1,6 +1,6 @@
 FROM nginx:alpine
 COPY /nginx/conf.d/default.conf /etc/nginx/conf.d/
 COPY /nginx/sites-enable/ /etc/nginx/conf.d/
-RUN mkdir /etc/nginx/ssl && mkdir /var/www/html/static
+RUN mkdir /etc/nginx/ssl && mkdir /www/html/static
 COPY /nginx/ssl/ /etc/nginx/ssl/
 COPY /nginx/static/ /www/html/static/
