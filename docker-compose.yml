@@ -49,7 +49,7 @@ services:
       - discovery.type=single-node
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
       - ELASTICSEARCH_HOSTS=${ELASTIC_HOSTNAME:-es01-labs}
-      - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD:-secret}
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD:-secret}
       - xpack.security.enabled=$ELASTIC_SECURITY
     ulimits:
       memlock:
