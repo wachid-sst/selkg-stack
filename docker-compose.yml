@@ -146,6 +146,13 @@ services:
     container_name: evebox-labs
     image: jasonish/evebox:master
 #    command: ["-e", "${ELASTIC_SCHEME:-http}://${ELASTIC_HOSTNAME:-es01-labs}:${ELASTIC_PORT:-9200}"]
+    build:
+      dockerfile: ./evebox/Dockerfile-${EVEBOX_ARCH:-amd64}
+      tags:
+        - evebox-labs:amd-${EVEBOX_VERSION:0.17.2}
+      args:
+        - EVEBOX_SRC=${EVEBOX_SRC:-./dist/evebox-${EVEBOX_VERSION:0.17.2}-linux-x64/evebox}
+        - EVEBOX_BASE=${EVEBOX_BASE:-amd64/alpine}
     command: ["-c", "/etc/evebox/evebox.yaml", "-vv"]
     restart: ${RESTART_MODE:-unless-stopped}
     environment:
