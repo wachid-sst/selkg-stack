@@ -229,7 +229,7 @@ services:
     restart: ${RESTART_MODE:-no}
     volumes:
       - ${PWD}/suricata/logs:/suricata-logs:ro
-      - ${PWD}/suricata/logs-fpc:/suricata-log/fpc:ro
+      - ${PWD}/suricata/logs-fpc:/suricata-logs/fpc:ro
       - ${PWD}/arkime/arkime-config:/data/config
       - ${PWD}/arkime/arkime-pcap:/data/pcap
       - ${PWD}/arkime/arkime-logs:/data/logs
