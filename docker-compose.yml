@@ -211,7 +211,6 @@ services:
       - USE_SURICATA_STATS=True #display more informations on the suricata page
       - USE_MOLOCH=True
       - MOLOCH_URL=http://moloch-labs:8005
-      
     volumes:
       - ${PWD}/scirius/scirius-static:/static
       - ${PWD}/scirius/scirius-data:/data
@@ -221,7 +220,8 @@ services:
       - ${PWD}/suricata/logs:/var/log/suricata:ro
     ports:
       - "8000:8000"  
-
+    networks:
+      - selkg-network
 
 networks:
   selkg-network:
