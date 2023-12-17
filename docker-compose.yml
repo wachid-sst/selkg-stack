@@ -67,7 +67,7 @@ services:
     build:
       dockerfile: ./logstash/Dockerfile
       tags:
-        - "logstash-labs:${LOGSTASH_VERSION:-7.17.15}
+        - "logstash-labs:${LOGSTASH_VERSION:-7.17.15}"
       args:
         - LOGSTASH_VERSION=${LOGSTASH_VERSION:-7.17.15}
     restart: ${RESTART_MODE:-unless-stopped}
