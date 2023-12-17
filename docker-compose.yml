@@ -144,16 +144,17 @@ services:
 
   evebox:
     container_name: evebox-labs
-    image: evebox-labs:amd-0.17.2
+#    image: evebox-labs:amd-0.17.2
+    image: jasonish/evebox:latest
 #    command: ["-e", "${ELASTIC_SCHEME:-http}://${ELASTIC_HOSTNAME:-es01-labs}:${ELASTIC_PORT:-9200}"]
-    build:
-      dockerfile: ./evebox/Dockerfile-${EVEBOX_ARCH:-amd64}
-      tags:
-        - evebox-labs:amd-0.17.2
-      args:
-        - EVEBOX_SRC=${EVEBOX_SRC:-./dist/evebox-0.17.2-linux-x64/evebox}
-        - EVEBOX_BASE=${EVEBOX_BASE:-amd64/alpine}
-        - EVEBOX_DATA_DIRECTORY=${EVEBOX_DATA_DIRECTORY:-/var/lib/evebox}
+#    build:
+#      dockerfile: ./evebox/Dockerfile-${EVEBOX_ARCH:-amd64}
+#      tags:
+#        - evebox-labs:amd-0.17.2
+#      args:
+#        - EVEBOX_SRC=${EVEBOX_SRC:-./dist/evebox-0.17.2-linux-x64/evebox}
+#        - EVEBOX_BASE=${EVEBOX_BASE:-amd64/alpine}
+#        - EVEBOX_DATA_DIRECTORY=${EVEBOX_DATA_DIRECTORY:-/var/lib/evebox}
     command: ["-c", "/etc/evebox/evebox.yaml", "-vv"]
     restart: ${RESTART_MODE:-unless-stopped}
     environment:
