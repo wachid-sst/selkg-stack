@@ -1,4 +1,4 @@
 FROM nginx:alpine
 COPY /nginx/conf.d/default.conf /etc/nginx/conf.d/
-COPY /nginx/site-enable/ /etc/nginx/conf.d/
+COPY /nginx/sites-enable/ /etc/nginx/conf.d/
 #Run mkdir /www/logs
