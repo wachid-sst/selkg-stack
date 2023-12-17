@@ -144,7 +144,7 @@ services:
 
   evebox:
     container_name: evebox-labs
-    image: jasonish/evebox:master
+    image: evebox-labs:amd-0.17.2
 #    command: ["-e", "${ELASTIC_SCHEME:-http}://${ELASTIC_HOSTNAME:-es01-labs}:${ELASTIC_PORT:-9200}"]
     build:
       dockerfile: ./evebox/Dockerfile-${EVEBOX_ARCH:-amd64}
