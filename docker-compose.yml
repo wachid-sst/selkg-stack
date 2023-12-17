@@ -27,10 +27,10 @@ services:
     network_mode: host
     volumes:
        - ${PWD}/suricata/logs:/var/log/suricata
-       - ${PWD}/suricata-rules:/etc/suricata/rules
-       - ${PWD}/suricata-run:/var/run/suricata/
+       - ${PWD}/suricata/suricata-rules:/etc/suricata/rules
+       - ${PWD}/suricata/suricata-run:/var/run/suricata/
        - ${PWD}/suricata/etc:/etc/suricata
-       - ${PWD}/suricata-logrotate:/etc/logrotate.d/
+       - ${PWD}/suricata/suricata-logrotate:/etc/logrotate.d/
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION:-7.17.15}
