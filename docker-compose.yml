@@ -83,6 +83,7 @@ services:
       - ELASTICSEARCH_HOSTS=${ELASTIC_HOSTNAME:-es01-labs}
       - ELASTICSEARCH_USERNAME=${ELASTIC_USERNAME:-elastic}
       - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD:-secret}
+      - MONITORING_ENABLED=${LOGSTASH_MONITORING:-false}
     networks:
       - selkg-network
     mem_limit: ${LOGSTASH_MEMORY:-1G}
