@@ -48,7 +48,8 @@ services:
       - bootstrap.memory_lock=true
       - discovery.type=single-node
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
-      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD:-secret}
+      - ELASTICSEARCH_HOSTS=${ELASTIC_HOSTNAME:-es01-labs}
+      - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD:-secret}
       - xpack.security.enabled=$ELASTIC_SECURITY
     ulimits:
       memlock:
@@ -73,6 +74,14 @@ services:
       timeout: 5s
       retries: 3
       start_period: 30s
+    env_file:
+      - ./.env
+    environment:
+      - ELASTICSEARCH_HOSTS=${ELASTIC_HOSTNAME:-es01-labs}
+      - ELASTICSEARCH_USERNAME=${ELASTIC_USERNAME:-elastic}
+      - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD:-secret}
+    networks:
+      - selkg-network
     mem_limit: ${LOGSTASH_MEMORY:-1G}
     volumes:
       - ${PWD}/logstash/logstash-sincedb:/var/lib/logstash/since-db/
