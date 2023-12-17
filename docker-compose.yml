@@ -149,7 +149,7 @@ services:
     build:
       dockerfile: ./evebox/Dockerfile-${EVEBOX_ARCH:-amd64}
       tags:
-        - evebox-labs:amd-${EVEBOX_VERSION:0.17.2}
+        - "evebox-labs:amd-${EVEBOX_VERSION:0.17.2}"
       args:
         - EVEBOX_SRC=${EVEBOX_SRC:-./dist/evebox-${EVEBOX_VERSION:0.17.2}-linux-x64/evebox}
         - EVEBOX_BASE=${EVEBOX_BASE:-amd64/alpine}
