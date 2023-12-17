@@ -237,6 +237,8 @@ services:
       - ${PWD}/arkime/arkime-config:/data/config
       - ${PWD}/arkime/arkime-pcap:/data/pcap
       - ${PWD}/arkime/arkime-logs:/data/logs
+    ports:
+      - "8005:8005"  
     networks:
       - selkg-network
 
