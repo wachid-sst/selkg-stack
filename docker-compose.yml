@@ -176,12 +176,6 @@ services:
       tags:
         - "nginx-labs:alphine-1.16.1"
     restart: ${RESTART_MODE:-unless-stopped}
-    environment:
-      - ELASTICSEARCH_HOSTNAME=${ELASTIC_HOSTNAME:-es01-labs}
-      - ELASTICSEARCH_PORT=${ELASTIC_PORT:-9200}
-      - ELASTICSEARCH_SCHEME=${ELASTIC_SCHEME:-http}
-      - ELASTICSEARCH_USER=${ELASTIC_USERNAME:-elastic}
-      - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD:-secret}
     volumes:
       - ${PWD}/nginx/etc/nginx.conf:/etc/nginx/nginx.conf:ro
       - ${PWD}/scirius/scirius-static:/static/:ro
@@ -237,6 +231,9 @@ services:
       - ${PWD}/arkime/arkime-config:/data/config
       - ${PWD}/arkime/arkime-pcap:/data/pcap
       - ${PWD}/arkime/arkime-logs:/data/logs
+    environment:
+      - ES_HOST=${PT_ELASTIC_HOSTNAME:-nginx-labs}
+      - ES_PORT=${PT_ELASTIC_PORT:-8200}
     ports:
       - "8005:8005"  
     networks:
