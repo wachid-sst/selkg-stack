@@ -95,10 +95,16 @@ services:
     image: docker.elastic.co/kibana/kibana:${KIBANA_VERSION:-7.17.15}
     container_name: kibana01-labs
     restart: ${RESTART_MODE:-unless-stopped}
+    healthcheck:
+      test: ["CMD-SHELL", "curl --user ${ELASTIC_USER:-elastic}:${ELASTIC_PASSWORD:-secret} --silent --fail localhost:5601 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
     env_file:
       - ./.env
     environment:
-      - ELASTICSEARCH_HOSTS=${ELASTIC_HOSTNAME:-es01-labs}
+      - ELASTICSEARCH_HOSTS=${ELASTIC_SCHEME:-http}://${ELASTIC_HOSTNAME:-es01-labs}:${ELASTIC_PORT:-9200}
       - ELASTICSEARCH_USERNAME=${ELASTIC_USERNAME:-elastic}
       - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD:-secret}
     networks:
