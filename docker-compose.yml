@@ -48,6 +48,8 @@ services:
       - ELASTICSEARCH_HOSTS=${ELASTIC_HOSTNAME:-es01-labs}
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD:-secret}
       - xpack.security.enabled=$ELASTIC_SECURITY
+    volumes:
+      - ${PWD}/elasticsearch/elastic-data:/usr/share/elasticsearch/data
     ulimits:
       memlock:
         soft: -1
