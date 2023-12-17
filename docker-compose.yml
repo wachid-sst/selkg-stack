@@ -219,7 +219,8 @@ services:
       - ${PWD}/suricata/suricata-rules:/rules
       - ${PWD}/suricata/suricata-run:/var/run/suricata
       - ${PWD}/suricata/logs:/var/log/suricata:ro
-      
+    ports:
+      - "8000:8000"  
 
 
 networks:
