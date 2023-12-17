@@ -78,7 +78,7 @@ services:
       - ${PWD}/logstash/logstash-sincedb:/usr/share/logstash
       - ${PWD}/suricata/logs:/var/log/suricata:ro
 #      - ${PWD}/logstash/conf.d:/etc/logstash/conf.d
-#      - ${PWD}/logstash/config:/usr/share/logstash/config
+      - ${PWD}/logstash/config:/usr/share/logstash/config
 #      - ${PWD}/logstash/templates:/usr/share/logstash/templates
 
   kibana:
