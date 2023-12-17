@@ -37,7 +37,7 @@ services:
     container_name: ${ELASTIC_HOSTNAME:-es01-labs}
     restart: ${RESTART_MODE:-unless-stopped}
     healthcheck:
-      test: ["CMD-SHELL", "curl --silent --fail localhost:9200/_cluster/health || exit 1"]
+      test: ["CMD-SHELL", "curl --user ${ELASTIC_USER:-elastic}:${ELASTIC_PASSWORD:-secret} --silent --fail localhost:9200/_cluster/health || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 3
