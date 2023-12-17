@@ -127,7 +127,8 @@ services:
       - ELASTICSEARCH_USER=${ELASTIC_USERNAME:-elastic}
       - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD:-secret}
     volumes:
-      - ./fluentd/conf:/fluentd/etc
+      - ${PWD}/fluentd/conf:/fluentd/etc
+      - ${PWD}/suricata/logs:/var/log/suricata
     networks:
       - selkg-network
     ports:
