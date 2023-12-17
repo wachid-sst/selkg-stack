@@ -11,12 +11,12 @@ services:
       args:
         - SURICATA_VERSION=${SURICATA_VERSION:-7.0.2}
         - SURICATA_ARCH=${SURICATA_ARCH:-amd64}
-    entrypoint: /new-docker-entrypoint.sh
+#    entrypoint: /new-docker-entrypoint.sh
     restart: ${RESTART_MODE:-unless-stopped}
     env_file:
       - ./.env
     environment:
-      - SURICATA_OPTIONS=ens160 -vvv --set sensor-name=suricata
+      - SURICATA_OPTIONS=-i ens160 -vvv --set sensor-name=suricata
       - SURICATA_VERSION=${SURICATA_VERSION:-7.0.2}
     cap_add:
       - NET_ADMIN
