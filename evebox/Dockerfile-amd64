@@ -1,5 +1,5 @@
-ARG BASE
-FROM $BASE
+ARG EVEBOX_BASE
+FROM ${EVEBOX_BASE:-amd64/alpine}
 
 RUN apk update && apk add tzdata
 
