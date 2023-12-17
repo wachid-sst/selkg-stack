@@ -24,7 +24,7 @@ services:
     network_mode: host
     volumes:
        - ${PWD}/suricata/logs:/var/log/suricata
-       - ${PWD}/suricata/suricata-rules:/etc/suricata/rules
+       - ${PWD}/suricata/suricata-rules:/var/lib/suricata/rules
        - ${PWD}/suricata/suricata-run:/var/run/suricata/
        - ${PWD}/suricata/etc:/etc/suricata
        - ${PWD}/suricata/suricata-logrotate:/etc/logrotate.d/
