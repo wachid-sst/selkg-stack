@@ -206,7 +206,7 @@ services:
       - USE_ELASTICSEARCH=True
       - ELASTICSEARCH_ADDRESS=nginx-labs:8200 #Default
       - USE_KIBANA=True
-      - KIBANA_URL=http://kibana01-labs:5601 #Default
+      - KIBANA_URL=http://nginx-labs:8601 #Default
       - KIBANA_PROXY=True #Get kibana proxied by Scirius
       - ALLOWED_HOSTS=* #allow connexions from anywhere
       - KIBANA7_DASHBOARDS_PATH=/opt/selks/kibana7-dashboards #where to find kibana dashboards
