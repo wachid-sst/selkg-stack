@@ -63,7 +63,7 @@ services:
 
   logstash:
     container_name: ${LOGSTASH_HOSTNAME:-logstash01-labs}
-    image:  elastic/logstash:${LOGSTASH_VERSION:-7.17.15}
+    image:  logstash-labs:${LOGSTASH_VERSION:-7.17.15}
     build:
       dockerfile: ./logstash/Dockerfile
       tags:
