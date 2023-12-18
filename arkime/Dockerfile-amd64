@@ -6,6 +6,7 @@ ARG UBUNTU_VERSION=22.04
 ARG ARKIME_DEB_PACKAGE="arkime_"$ARKIME_VERSION"-1_amd64.deb"
 
 # Declare envs vars for each arg
+ENV DEBIAN_FRONTEND=noninteractive 
 ENV ARKIME_VERSION $ARKIME_VERSION
 ENV ES_HOST "nginx-labs"
 ENV ES_PORT 8200
