@@ -226,8 +226,13 @@ services:
 
   arkime:
     container_name: arkime-labs
-    image: ghcr.io/mosajjal/arkime-container:latest
-    command: ["--passwordSecret=secret", "--elasticsearch=http://localhost:8200","--interface=ens160","--createAdminUser=true"]
+    build:
+      dockerfile: ./arkime/Dockerfile-${ARKIME_ARCH:-amd64}
+      tags:
+        - arkime-labs:amd-${ARKIME_VERSION:-4.6.0}
+      args:
+        - ARKIME_VERSION=${ARKIME_VERSION:-4.6.0}
+        - ARKIME_ARCH=${ARKIME_ARCH:-amd64}
     restart: ${RESTART_MODE:-no}
     volumes:
       - ${PWD}/suricata/logs:/suricata-logs:ro
@@ -237,13 +242,14 @@ services:
       - ${PWD}/arkime/arkime-pcap:/data/pcap
       - ${PWD}/arkime/arkime-logs:/data/logs
       - ${PWD}/arkime/arkime-raw:/data/raw
-      - ${PWD}/arkime/config:/opt/arkime/etc
+#      - ${PWD}/arkime/config:/opt/arkime/etc
     environment:
       - ES_HOST=${PT_ELASTIC_HOSTNAME:-nginx-labs}
       - ES_PORT=${PT_ELASTIC_PORT:-8200}
-#    ports:
-#      - "8005:8005"  
-    network_mode: host
+    ports:
+      - "8005:8005"  
+    networks:
+      - selkg-network
       
 networks:
   selkg-network:
