@@ -15,7 +15,7 @@ ENV ARKIME_HOSTNAME "arkime"
 ENV ARKIMEDIR "/opt/arkime"
 
 # Add entrypoint
-COPY start-arkimeviewer.sh /start-arkimeviewer.sh
+COPY /arkime/start-arkimeviewer.sh /start-arkimeviewer.sh
 
 # Install Arkime
 RUN apt-get update && \
@@ -37,7 +37,7 @@ RUN apt-get update && \
     mkdir -p /readpcap
 
 # add config
-COPY arkimepcapread-selks-config.ini /data/config/config.ini
+COPY /arkime/arkimepcapread-selks-config.ini /data/config/config.ini
 
 VOLUME ["/data/pcap", "/data/config", "/data/logs"]
 EXPOSE 8005
