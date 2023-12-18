@@ -223,6 +223,33 @@ services:
       - "8000:8000"  
     networks:
       - selkg-network
+
+  arkime:
+    container_name: arkime-labs
+    build:
+      dockerfile: ./arkime/Dockerfile-${ARKIME_ARCH:-amd64}
+      tags:
+        - arkime-labs:amd-${ARKIME_VERSION:-4.6.0}
+      args:
+        - ARKIME_VERSION=${ARKIME_VERSION:-4.6.0}
+        - ARKIME_ARCH=${ARKIME_ARCH:-amd64}
+    restart: ${RESTART_MODE:-no}
+    volumes:
+      - ${PWD}/suricata/logs:/suricata-logs:ro
+      - ${PWD}/suricata/logs-fpc:/suricata-logs/fpc
+      - ${PWD}/arkime/arkime-config:/data/config
+      - ${PWD}/arkime/arkime-geo:/data/geo
+      - ${PWD}/arkime/arkime-pcap:/data/pcap
+      - ${PWD}/arkime/arkime-logs:/data/logs
+      - ${PWD}/arkime/arkime-raw:/data/raw
+#      - ${PWD}/arkime/config:/opt/arkime/etc
+    environment:
+      - ES_HOST=${PT_ELASTIC_HOSTNAME:-nginx-labs}
+      - ES_PORT=${PT_ELASTIC_PORT:-8200}
+    ports:
+      - "8005:8005"  
+    networks:
+      - selkg-network
       
 networks:
   selkg-network:
