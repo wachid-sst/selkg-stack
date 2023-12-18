@@ -226,7 +226,7 @@ services:
 
   arkime:
     container_name: arkime-labs
-    image: ghcr.io/stamusnetworks/arkimeviewer:${ARKIMEVIEWER_VERSION:-master} ## Repo will need to be changed to stamusnetwork once image built
+    image: mammo0/docker-arkime
     restart: ${RESTART_MODE:-no}
     volumes:
       - ${PWD}/suricata/logs:/suricata-logs:ro
