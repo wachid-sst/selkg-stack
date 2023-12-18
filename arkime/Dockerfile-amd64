@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM ubuntu:jammy
 
 # Declare args
 ARG ARKIME_VERSION=4.6.0-1
