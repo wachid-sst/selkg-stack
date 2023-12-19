@@ -25,6 +25,31 @@ else
     /opt/arkime/bin/arkime_update_geo.sh
 fi
 
+GEO_ASN=/config/geo/GeoLite2-ASN.mmdb
+if test -f "$GEO_ASN"; then
+    echo "$GEO_ASN exists."
+else
+    echo "$GEO_ASN not exists."
+    wget -q -O $GEO_ASN "https://git.io/GeoLite2-ASN.mmdb"
+fi
+
+GEO_CITY=/config/geo/GeoLite2-City.mmdb
+if test -f "$GEO_CITY"; then
+    echo "$GEO_CITY exists."
+else
+    echo "$GEO_CITY not exists."
+    wget -q -O $GEO_CITY "https://git.io/GeoLite2-City.mmdb"
+fi
+
+GEO_COUNTRY=/config/geo/GeoLite2-Country.mmdb
+if test -f "$GEO_COUNTRY"; then
+    echo "$GEO_COUNTRY exists."
+else
+    echo "$GEO_COUNTRY not exists."
+    wget -q -O $GEO_COUNTRY "https://git.io/GeoLite2-Country.mmdb"
+fi
+
+
 until curl -sS "http://$ES_HOST:$ES_PORT/_cluster/health?wait_for_status=yellow" > /dev/null 2>&1
 do
     echo "Waiting for ES to start"
