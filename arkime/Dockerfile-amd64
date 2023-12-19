@@ -22,7 +22,7 @@ COPY /arkime/start-arkimeviewer.sh /start-arkimeviewer.sh
 
 # Install Arkime
 RUN apt-get update && \
-    apt-get install -y curl libmagic-dev wget logrotate dialog apt-utils && \
+    apt-get install -y apt-utils curl libmagic-dev wget logrotate dialog && \
     mkdir -p /data && \
     mkdir -p /suricata-logs && \
     cd /data && \
