@@ -4,7 +4,7 @@ DEBIAN_FRONTEND=noninteractive
 # update repo
 apt update -y && apt upgrade -y
 # install depedensi
-apt-get install ca-certificates curl gnupg
+apt-get install ca-certificates curl gnupg -y
 # Mendownload gpg key docker:
 install -m 0755 -d /etc/apt/keyrings
 
