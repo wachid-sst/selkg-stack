@@ -164,9 +164,9 @@ services:
       - EVEBOX_DATA_DIRECTORY=${EVEBOX_DATA_DIRECTORY:-/var/lib/evebox}
       - EVEBOX_LOGS_DIRECTORY=${EVEBOX_LOGS_DIRECTORY:-/var/log/evebox}
     volumes:
-      - ${PWD}/evebox/etc/evebox.yaml:/etc/evebox/evebox.yaml
+      - ${PWD}/evebox/etc:/etc/evebox
       - ${PWD}/evebox/var:/var/lib/evebox
-      - ${PWD}/suricata/logs:/var/log/suricata
+      - ${PWD}/suricata/logs:/var/log/evebox
     ports:
       - "5636:5636"
     networks:
