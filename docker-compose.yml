@@ -238,12 +238,12 @@ services:
     volumes:
       - ${PWD}/suricata/logs:/suricata-logs:ro
       - ${PWD}/suricata/logs-fpc:/suricata-logs/fpc
-#     - ${PWD}/arkime/arkime-config:/data/config
+      - ${PWD}/arkime/arkime-config:/data/config
 #      - ${PWD}/arkime/arkime-geo:/data/geo
       - ${PWD}/arkime/arkime-pcap:/data/pcap
       - ${PWD}/arkime/arkime-logs:/opt/arkime/logs
       - ${PWD}/arkime/arkime-raw:/data/raw
-      - ${PWD}/arkime/etc:/opt/arkime/etc
+#      - ${PWD}/arkime/etc:/opt/arkime/etc
     environment:
       - ES_HOST=${PT_ELASTIC_HOSTNAME:-nginx-labs}
       - ES_PORT=${PT_ELASTIC_PORT:-8200}
