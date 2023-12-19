@@ -166,7 +166,7 @@ services:
     volumes:
       - ${PWD}/evebox/etc:/etc/evebox
       - ${PWD}/evebox/var:/var/lib/evebox
-      - ${PWD}/suricata/logs:/var/log/evebox
+      - ${PWD}/suricata/logs:/var/logs/evebox
     ports:
       - "5636:5636"
     networks:
