@@ -161,7 +161,7 @@ services:
     environment:
       - EVEBOX_HTTP_TLS_ENABLED=false
       - EVEBOX_AUTHENTICATION_REQUIRED=true
-      - EVEBOX_DATA_DIRECTORY=${EVEBOX_DATA_DIRECTORY:-/opt/evebox}
+      - EVEBOX_DATA_DIRECTORY=${EVEBOX_DATA_DIRECTORY:-/var/lib/evebox}
       - EVEBOX_LOGS_DIRECTORY=${EVEBOX_LOGS_DIRECTORY:-/var/log/evebox}
     volumes:
       - ${PWD}/evebox/etc/evebox.yaml:/etc/evebox/evebox.yaml
