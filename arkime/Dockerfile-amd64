@@ -47,6 +47,6 @@ RUN echo $ARKIME_DIR && ls -l $ARKIME_DIR/etc/
 
 VOLUME ["$ARKIME_DIR/pcap", "$ARKIME_DIR/config", "$ARKIME_DIR/logs"]
 EXPOSE 8005
-WORKDIR $ARKIMEDIR
+WORKDIR $ARKIME_DIR
 
 ENTRYPOINT ["/start-arkimeviewer.sh"]
