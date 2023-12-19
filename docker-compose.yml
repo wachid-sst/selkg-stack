@@ -225,6 +225,7 @@ services:
       - selkg-network
 
   arkime:
+    image: arkime-labs-${ARKIME_VERSION:-4.6.0}
     container_name: arkime-labs
     build:
       dockerfile: ./arkime/Dockerfile-${ARKIME_ARCH:-amd64}
