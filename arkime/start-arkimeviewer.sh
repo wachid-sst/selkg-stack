@@ -27,7 +27,7 @@ if [ ! -f $ARKIME_DIR/etc/.initialized ]; then
     echo INIT | $ARKIME_DIR/db/db.pl $ARKIME_ELASTICSEARCH init
     $ARKIME_DIR/bin/arkime_add_user.sh $ARKIME_ADMIN_USERNAME "SELKS Admin User" $ARKIME_ADMIN_PASSWORD --admin
     $ARKIME_DIR/bin/arkime_add_user.sh moloch moloch moloch --admin --webauth
-    echo $ARKIME_VERSION > $ARKIMEDIR/etc/.initialized
+    echo $ARKIME_VERSION > $ARKIME_DIR/etc/.initialized
 else
     # possible update
     read old_ver < $ARKIME_DIR/etc/.initialized
@@ -43,7 +43,7 @@ else
 fi
 
 echo "Starting Arkime capture in the background..."
-exec $ARKIME_DIR/bin/capture -m -s -R /suricata-logs/fpc/ >> $ARKIMEDIR/logs/capture.log 2>&1 &
+exec $ARKIME_DIR/bin/capture -m -s -R /suricata-logs/fpc/ >> $ARKIME_DIR/logs/capture.log 2>&1 &
 
 echo "Look at log files for errors"
 echo "  /data/logs/viewer.log"
