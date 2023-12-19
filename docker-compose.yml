@@ -246,7 +246,7 @@ services:
     environment:
       - ES_HOST=${PT_ELASTIC_HOSTNAME:-nginx-labs}
       - ES_PORT=${PT_ELASTIC_PORT:-8200}
-      - ARKIME_ADMIN_USERNAME=${ARKIME_ADMIN_USERNAME:-admin}
+      - ARKIME_ADMIN_USERNAME=${ARKIME_ADMIN_USERNAME:-arkime}
       - ARKIME_ADMIN_PASSWORD=${ARKIME_ADMIN_PASSWORD:-secret}
       - ARKIME_DIR=${ARKIME_DIR:-/opt/arkime}
     ports:
