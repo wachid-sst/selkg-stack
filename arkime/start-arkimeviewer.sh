@@ -2,8 +2,9 @@
 
 echo "Giving ES time to start..."
 
-echo "check directory " $ARKIME_DIR && \
-echo "isinya : " && ls -l $ARKIME_DIR/etc/
+echo "check directory "
+echo "isinya $ARKIME_DIR     : " && ls -l $ARKIME_DIR/
+echo "isinya $ARKIME_DIR/etc : " && ls -l $ARKIME_DIR/etc
 
 until curl -sS "http://$ES_HOST:$ES_PORT/_cluster/health?wait_for_status=yellow" > /dev/null 2>&1
 do
@@ -11,7 +12,6 @@ do
     sleep 3
 done
 
-echo
 echo "ES started..."
 
 until [[ -d "/suricata-logs/fpc" ]] && [[ -f "/suricata-logs/eve.json" ]]
