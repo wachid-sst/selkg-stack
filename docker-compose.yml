@@ -248,6 +248,7 @@ services:
       - ES_PORT=${PT_ELASTIC_PORT:-8200}
       - ARKIME_ADMIN_USERNAME=${ARKIME_ADMIN_USERNAME:-admin}
       - ARKIME_ADMIN_PASSWORD=${ARKIME_ADMIN_PASSWORD:-secret}
+      - ARKIME_DIR=${ARKIME_DIR:-/opt/arkime}
     ports:
       - "8005:8005"  
     networks:
