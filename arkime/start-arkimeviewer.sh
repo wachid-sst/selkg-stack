@@ -19,27 +19,27 @@ done
 # set runtime environment variables
 export ARKIME_ELASTICSEARCH="http://"$ES_HOST":"$ES_PORT
 
-if [ ! -f $ARKIMEDIR/etc/.initialized ]; then
-    echo INIT | $ARKIMEDIR/db/db.pl $ARKIME_ELASTICSEARCH init
-    $ARKIMEDIR/bin/arkime_add_user.sh $ARKIME_ADMIN_USERNAME "SELKS Admin User" $ARKIME_ADMIN_PASSWORD --admin
-    $ARKIMEDIR/bin/arkime_add_user.sh moloch moloch moloch --admin --webauth
+if [ ! -f $ARKIME_DIR/etc/.initialized ]; then
+    echo INIT | $ARKIME_DIR/db/db.pl $ARKIME_ELASTICSEARCH init
+    $ARKIME_DIR/bin/arkime_add_user.sh $ARKIME_ADMIN_USERNAME "SELKS Admin User" $ARKIME_ADMIN_PASSWORD --admin
+    $ARKIME_DIR/bin/arkime_add_user.sh moloch moloch moloch --admin --webauth
     echo $ARKIME_VERSION > $ARKIMEDIR/etc/.initialized
 else
     # possible update
-    read old_ver < $ARKIMEDIR/etc/.initialized
+    read old_ver < $ARKIME_DIR/etc/.initialized
     # detect the newer version
     newer_ver=`echo -e "$old_ver\n$ARKIME_VERSION" | sort -rV | head -n 1`
     # the old version should not be the same as the newer version
     # otherwise -> upgrade
     if [ "$old_ver" != "$newer_ver" ]; then
         echo "Upgrading ES database..."
-        echo UPGRADE | $ARKIMEDIR/db/db.pl http://$ES_HOST:$ES_PORT upgrade
-        echo $ARKIME_VERSION > $ARKIMEDIR/etc/.initialized
+        echo UPGRADE | $ARKIME_DIR/db/db.pl http://$ES_HOST:$ES_PORT upgrade
+        echo $ARKIME_VERSION > $ARKIME_DIR/etc/.initialized
     fi
 fi
 
 echo "Starting Arkime capture in the background..."
-exec $ARKIMEDIR/bin/capture -m -s -R /suricata-logs/fpc/ >> $ARKIMEDIR/logs/capture.log 2>&1 &
+exec $ARKIME_DIR/bin/capture -m -s -R /suricata-logs/fpc/ >> $ARKIMEDIR/logs/capture.log 2>&1 &
 
 echo "Look at log files for errors"
 echo "  /data/logs/viewer.log"
@@ -49,5 +49,5 @@ echo "  user: $ARKIME_ADMIN_USERNAME"
 echo "  password: $ARKIME_ADMIN_PASSWORD"
 
 echo "Launch viewer..."
-cd $ARKIMEDIR/viewer
-$ARKIMEDIR/bin/node $ARKIMEDIR/viewer/viewer.js >> $ARKIMEDIR/logs/viewer.log 2>&1
+cd $ARKIME_DIR/viewer
+$ARKIME_DIR/bin/node $ARKIME_DIR/viewer/viewer.js >> $ARKIME_DIR/logs/viewer.log 2>&1
