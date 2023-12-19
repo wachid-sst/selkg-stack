@@ -34,6 +34,7 @@ RUN apt-get update && \
     ln -s /data/config $ARKIME_DIR/etc && \
     ln -s /data/logs $ARKIME_DIR/logs && \
     ln -s /data/pcap $ARKIME_DIR/raw && \
+    ln -s /data/geo $ARKIME_DIR/geo && \
     wget -q -O /config/oui.txt "https://www.wireshark.org/download/automated/data/manuf"  && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/* && \
     rm /data/$ARKIME_DEB_PACKAGE && \
@@ -44,7 +45,7 @@ RUN apt-get update && \
 #    echo "set config" && \
 #    mv /config.ini /data/config/
 
-VOLUME ["/data/pcap", "/data/config", "/data/logs"]
+VOLUME ["/data/pcap", "/data/config", "/data/logs", "/data/geo"]
 EXPOSE 8005
 WORKDIR $ARKIME_DIR
 
