@@ -241,7 +241,7 @@ services:
 #     - ${PWD}/arkime/arkime-config:/data/config
 #      - ${PWD}/arkime/arkime-geo:/data/geo
       - ${PWD}/arkime/arkime-pcap:/data/pcap
-      - ${PWD}/arkime/arkime-logs:/data/logs
+      - ${PWD}/arkime/arkime-logs:/opt/arkime/logs
       - ${PWD}/arkime/arkime-raw:/data/raw
       - ${PWD}/arkime/etc:/opt/arkime/etc
     environment:
