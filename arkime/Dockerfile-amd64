@@ -42,9 +42,6 @@ RUN apt-get update && \
 # add config
 COPY /arkime/arkimepcapread-selks-config.ini $ARKIME_DIR/etc/config.ini
 
-
-RUN echo $ARKIME_DIR && ls -l $ARKIME_DIR/etc/
-
 VOLUME ["/data/pcap", "/data/config", "/data/logs"]
 EXPOSE 8005
 WORKDIR $ARKIME_DIR
