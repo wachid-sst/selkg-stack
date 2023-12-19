@@ -19,7 +19,8 @@ ENV ARKIME_DIR ${ARKIME_DIR:-/opt/arkime}
 
 # Add entrypoint
 COPY /arkime/start-arkimeviewer.sh /start-arkimeviewer.sh
-COPY /arkime/config.ini /config.ini
+# COPY /arkime/config.ini /config.ini
+  COPY -R /arkime/config /
 
 # Install Arkime
 RUN apt-get update && \
@@ -33,7 +34,7 @@ RUN apt-get update && \
     ln -s /data/config $ARKIME_DIR/etc && \
     ln -s /data/logs $ARKIME_DIR/logs && \
     ln -s /data/pcap $ARKIME_DIR/raw && \
-    wget -q -O /data/config/oui.txt "https://www.wireshark.org/download/automated/data/manuf"  && \
+    wget -q -O /config/oui.txt "https://www.wireshark.org/download/automated/data/manuf"  && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/* && \
     rm /data/$ARKIME_DEB_PACKAGE && \
     $ARKIME_DIR/bin/arkime_update_geo.sh && \
