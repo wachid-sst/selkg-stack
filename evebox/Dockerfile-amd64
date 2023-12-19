@@ -1,0 +1,17 @@
+FROM jasonish/evebox:latest
+
+#ENV EVEBOX_DATA_DIRECTORY=${EVEBOX_DATA_DIRECTORY:-/var/lib/evebox}
+ENV EVEBOX_LOGS_DIRECTORY=${EVEBOX_LOGS_DIRECTORY:-/var/logs/evebox}
+
+RUN mkdir -p ${EVEBOX_LOGS_DIRECTORY} && rm /docker-entrypoint.sh
+#VOLUME ${EVEBOX_DATA_DIRECTORY}
+VOLUME ${EVEBOX_LOGS_DIRECTORY}
+
+COPY /evebox/docker-entrypoint.sh /docker-entrypoint.sh
+
+# RUN chmod +x /docker-entrypoint.sh && chmod +x /bin/evebox
+
+RUN ["chmod", "+x", "/docker-entrypoint.sh"] && ["chmod", "+x", "/bin/evebox"]
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["/bin/evebox"]
