@@ -17,5 +17,8 @@ VOLUME ${EVEBOX_DATA_DIRECTORY}
 VOLUME ${EVEBOX_LOGS_DIRECTORY}
 
 COPY /evebox/docker-entrypoint.sh /docker-entrypoint.sh
+
+RUN chmod +x /docker-entrypoint.sh 
+
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["/bin/evebox"]
