@@ -40,7 +40,7 @@ RUN apt-get update && \
     mkdir -p /readpcap
 
 # add config
-COPY /arkime/arkimepcapread-selks-config.ini $ARKIME_DIR/etc/config.ini
+COPY /arkime/arkimepcapread-selks-config.ini /data/config/config.ini
 
 VOLUME ["/data/pcap", "/data/config", "/data/logs"]
 EXPOSE 8005
