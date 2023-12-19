@@ -1,6 +1,10 @@
 #!/bin/bash
 
 echo "Giving ES time to start..."
+
+echo "check directory " $ARKIME_DIR && \
+echo "isinya : " && ls -l $ARKIME_DIR/etc/
+
 until curl -sS "http://$ES_HOST:$ES_PORT/_cluster/health?wait_for_status=yellow" > /dev/null 2>&1
 do
     echo "Waiting for ES to start"
