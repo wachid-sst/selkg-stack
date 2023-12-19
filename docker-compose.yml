@@ -239,7 +239,7 @@ services:
       - ${PWD}/suricata/logs:/suricata-logs:ro
       - ${PWD}/suricata/logs-fpc:/suricata-logs/fpc
       - ${PWD}/arkime/arkime-config:/data/config
-#      - ${PWD}/arkime/arkime-geo:/data/geo
+      - ${PWD}/arkime/arkime-geo:/data/geo
       - ${PWD}/arkime/arkime-pcap:/data/pcap
       - ${PWD}/arkime/arkime-logs:/opt/arkime/logs
       - ${PWD}/arkime/arkime-raw:/data/raw
