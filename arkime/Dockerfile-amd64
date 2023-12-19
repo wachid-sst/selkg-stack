@@ -6,6 +6,8 @@ ARG ARKIME_VERSION=4.6.0-1
 ARG UBUNTU_VERSION=22.04
 ARG ARKIME_DEB_PACKAGE="arkime_"$ARKIME_VERSION"-1_amd64.deb"
 
+ENV DEBIAN_FRONTEND noninteractive
+
 # Declare envs vars for each arg
 ENV ARKIME_VERSION $ARKIME_VERSION
 ENV ES_HOST ${ES_HOST:-nginx-labs}
@@ -21,7 +23,6 @@ COPY /arkime/start-arkimeviewer.sh /start-arkimeviewer.sh
 # Install Arkime
 RUN apt-get update && \
     apt-get install -y curl libmagic-dev wget logrotate dialog apt-utils && \
-    echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
     mkdir -p /data && \
     mkdir -p /suricata-logs && \
     cd /data && \
