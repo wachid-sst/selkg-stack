@@ -6,4 +6,4 @@ if [ "${1:0:1}" = "-" ]; then
     set -- /bin/evebox server "$@"
 fi
 
-#exec "$@"
+exec " /bin/bash $@"
