@@ -9,6 +9,8 @@ VOLUME ${EVEBOX_LOGS_DIRECTORY}
 
 COPY /evebox/docker-entrypoint.sh /docker-entrypoint.sh
 
+COPY /evebox/etc/evebox.yaml /etc/evebox/
+
 # RUN chmod +x /docker-entrypoint.sh && chmod +x /bin/evebox
 
 RUN ["chmod", "+x", "/docker-entrypoint.sh"]
