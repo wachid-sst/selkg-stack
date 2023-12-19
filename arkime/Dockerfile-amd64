@@ -38,9 +38,10 @@ RUN apt-get update && \
     rm /data/$ARKIME_DEB_PACKAGE && \
     $ARKIME_DIR/bin/arkime_update_geo.sh && \
     chmod 755 /start-arkimeviewer.sh && \
-    mkdir -p /readpcap && \
-    echo "set config" && \
-    mv /config.ini /data/config/
+    mkdir -p /readpcap 
+#&& \
+#    echo "set config" && \
+#    mv /config.ini /data/config/
 
 VOLUME ["/data/pcap", "/data/config", "/data/logs"]
 EXPOSE 8005
