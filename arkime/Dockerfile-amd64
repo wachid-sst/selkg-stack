@@ -20,7 +20,7 @@ ENV ARKIME_DIR ${ARKIME_DIR:-/opt/arkime}
 # Add entrypoint
 COPY /arkime/start-arkimeviewer.sh /start-arkimeviewer.sh
 # COPY /arkime/config.ini /config.ini
-  COPY /arkime/config /
+  COPY /arkime/config /config
 
 # Install Arkime
 RUN apt-get update && \
