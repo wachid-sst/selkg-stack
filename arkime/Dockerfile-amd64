@@ -45,7 +45,7 @@ COPY /arkime/arkimepcapread-selks-config.ini $ARKIME_DIR/etc/config.ini
 
 RUN echo $ARKIME_DIR && ls -l $ARKIME_DIR/etc/
 
-VOLUME ["$ARKIME_DIR/pcap", "$ARKIME_DIR/config", "$ARKIME_DIR/logs"]
+VOLUME ["/data/pcap", "/data/config", "/data/logs"]
 EXPOSE 8005
 WORKDIR $ARKIME_DIR
 
