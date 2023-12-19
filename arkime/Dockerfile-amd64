@@ -28,14 +28,14 @@ RUN apt-get update && \
     cd /data && \
     wget -q "https://s3.amazonaws.com/files.molo.ch/builds/ubuntu-"$UBUNTU_VERSION"/"$ARKIME_DEB_PACKAGE && \
     apt-get install -y ./$ARKIME_DEB_PACKAGE && \
-    mv $ARKIMEDIR/etc /data/config && \
+    mv $ARKIME_DIR/etc /data/config && \
     ln -s /data/config $ARKIMEDIR/etc && \
     ln -s /data/logs $ARKIMEDIR/logs && \
     ln -s /data/pcap $ARKIMEDIR/raw && \
     wget -q -O /data/config/oui.txt "https://www.wireshark.org/download/automated/data/manuf"  && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/* && \
     rm /data/$ARKIME_DEB_PACKAGE && \
-    $ARKIMEDIR/bin/arkime_update_geo.sh && \
+    $ARKIME_DIR/bin/arkime_update_geo.sh && \
     chmod 755 /start-arkimeviewer.sh && \
     mkdir -p /readpcap
 
