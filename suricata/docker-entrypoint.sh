@@ -67,5 +67,13 @@ echo ${ARGS}
 echo ${SURICATA_OPTIONS}
 ls -l /etc/suricata/
 
+PID=/var/run/suricata-pid/suricata.pid
+if test -f "$PID"; then
+    echo "$PID exists."
+    rm $PID
+else
+    echo "$PID not exists."
+fi
+
 exec /usr/bin/suricata ${ARGS} ${SURICATA_OPTIONS} $@
 #exec /usr/bin/suricata -i ens160 -vvv $@
