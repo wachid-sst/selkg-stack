@@ -242,7 +242,7 @@ services:
       - ${PWD}/arkime/arkime-pcap:/data/pcap
       - ${PWD}/arkime/arkime-logs:/data/logs
       - ${PWD}/arkime/arkime-raw:/data/raw
-#      - ${PWD}/arkime/config:/opt/arkime/etc
+      - ${PWD}/arkime/etc:/opt/arkime/etc
     environment:
       - ES_HOST=${PT_ELASTIC_HOSTNAME:-nginx-labs}
       - ES_PORT=${PT_ELASTIC_PORT:-8200}
