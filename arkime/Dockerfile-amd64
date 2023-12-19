@@ -20,7 +20,8 @@ COPY /arkime/start-arkimeviewer.sh /start-arkimeviewer.sh
 
 # Install Arkime
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y curl libmagic-dev wget logrotate dialog apt-utils && \
+    apt-get install -y curl libmagic-dev wget logrotate dialog apt-utils && \
+    echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
     mkdir -p /data && \
     mkdir -p /suricata-logs && \
     cd /data && \
