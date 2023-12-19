@@ -23,15 +23,15 @@ COPY /arkime/start-arkimeviewer.sh /start-arkimeviewer.sh
 # Install Arkime
 RUN apt-get update && \
     apt-get install -y apt-utils curl libmagic-dev wget logrotate dialog && \
-    mkdir -p /data && \
+    mkdir -p /data/config && \
     mkdir -p /suricata-logs && \
     cd /data && \
     wget -q "https://s3.amazonaws.com/files.molo.ch/builds/ubuntu-"$UBUNTU_VERSION"/"$ARKIME_DEB_PACKAGE && \
     apt-get install -y ./$ARKIME_DEB_PACKAGE && \
     mv $ARKIME_DIR/etc /data/config && \
-    ln -s /data/config $ARKIMEDIR/etc && \
-    ln -s /data/logs $ARKIMEDIR/logs && \
-    ln -s /data/pcap $ARKIMEDIR/raw && \
+    ln -s /data/config $ARKIME_DIR/etc && \
+    ln -s /data/logs $ARKIME_DIR/logs && \
+    ln -s /data/pcap $ARKIME_DIR/raw && \
     wget -q -O /data/config/oui.txt "https://www.wireshark.org/download/automated/data/manuf"  && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/* && \
     rm /data/$ARKIME_DEB_PACKAGE && \
