@@ -3,12 +3,27 @@
 echo "Giving ES time to start..."
 
 echo "check directory "
-echo "isinya /     : " && ls -l $ARKIME_DIR/
+
 echo "isinya $ARKIME_DIR/ : " && ls -l $ARKIME_DIR/
 echo "isinya $ARKIME_DIR/etc/ : " && ls -l $ARKIME_DIR/etc/
 
 echo "set config" && \
-cp --verbose /config/ $ARKIME_DIR/etc/
+
+CFG_ini=$ARKIME_DIR/etc/config.ini
+if test -f "$CFG_ini"; then
+    echo "$CFG_ini exists."
+else
+    echo "$CFG_ini not exists."
+    cp --verbose /config/ $ARKIME_DIR/etc/
+fi
+
+OUI_txt=/data/config/oui.txt
+if test -f "$OUI_txt"; then
+    echo "$OUI_txt exists."
+else
+    echo "$OUI_txt not exists."
+    /opt/arkime/bin/arkime_update_geo.sh
+fi
 
 until curl -sS "http://$ES_HOST:$ES_PORT/_cluster/health?wait_for_status=yellow" > /dev/null 2>&1
 do
