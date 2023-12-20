@@ -118,7 +118,7 @@ services:
     env_file:
       - ./.env
     environment:
-      - ELASTICSEARCH_HOSTS=${ELASTIC_SCHEME:-http}://${ELASTIC_HOSTNAME:-es01-labs}:${ELASTIC_PORT:-9200}
+      - ELASTICSEARCH_HOSTS=${ELASTIC_SCHEME:-https}://${ELASTIC_HOSTNAME:-es01-labs}:${ELASTIC_PORT:-9200}
       - ELASTICSEARCH_USERNAME=${ELASTIC_USERNAME:-elastic}
       - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD:-secret}
     logging:
