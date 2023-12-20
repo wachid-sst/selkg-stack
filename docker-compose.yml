@@ -296,9 +296,9 @@ services:
     image: postgres:14
     container_name: postgres-labs
     environment:
-      - POSTGRES_USER: postgres     # define credentials
-      - POSTGRES_PASSWORD: passpost # define credentials
-      - POSTGRES_DB: grafana        # define database
+      - POSTGRES_USER=postgres     # define credentials
+      - POSTGRES_PASSWORD=passpost # define credentials
+      - POSTGRES_DB=grafana        # define database
  #   env_file:
  #       - /postgres/env-postgres
     volumes:
