@@ -215,6 +215,7 @@ services:
       - ${PWD}/scirius/scirius-static:/static/:ro
 #     - ${PWD}/nginx/etc:/nginx/etc
       - ${PWD}/nginx/conf.d:/nginx/etc/conf.d
+      - ${PWD}/nginx/sites-enable:/nginx/etc/sites-enable
       - ${PWD}/nginx/nginx-logs:/var/log/nginx-logs
     networks:
       - selkg-network
