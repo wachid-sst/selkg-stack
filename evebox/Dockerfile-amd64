@@ -12,7 +12,7 @@ VOLUME ${EVEBOX_CONFIG_DIRECTORY}
 
 COPY /evebox/docker-entrypoint.sh /docker-entrypoint.sh
 
-COPY /evebox/etc/evebox.yaml /etc/evebox/
+COPY /evebox/config/evebox.yaml /etc/evebox/
 
 # RUN chmod +x /docker-entrypoint.sh && chmod +x /bin/evebox
 
