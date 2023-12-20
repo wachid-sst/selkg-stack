@@ -119,6 +119,7 @@ services:
       - ./.env
     environment:
       - ELASTICSEARCH_HOSTS=${ELASTIC_SCHEME:-https}://${ELASTIC_HOSTNAME:-es01-labs}:${ELASTIC_PORT:-9200}
+      - elasticsearch.ssl.verificationMode=none 
       - ELASTICSEARCH_USERNAME=${ELASTIC_USERNAME:-elastic}
       - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD:-secret}
     logging:
