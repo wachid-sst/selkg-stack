@@ -34,7 +34,6 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/* && \
     rm /data/$ARKIME_DEB_PACKAGE && \
     $ARKIME_DIR/bin/arkime_update_geo.sh && \
-    chmod 755 /start-arkimeviewer.sh && \
     mkdir -p /readpcap 
 
 # Add entrypoint
