@@ -14,7 +14,7 @@ if test -f "$CFG_ini"; then
     echo "$CFG_ini exists."
 else
     echo "$CFG_ini not exists."
-    cp --verbose /config/ $ARKIME_DIR/etc/
+#    cp --verbose /config/ $ARKIME_DIR/etc/
 fi
 
 OUI_txt=/data/config/oui.txt
@@ -25,7 +25,7 @@ else
     /opt/arkime/bin/arkime_update_geo.sh
 fi
 
-GEO_ASN=/config/geo/GeoLite2-ASN.mmdb
+GEO_ASN=/data/geo/GeoLite2-ASN.mmdb
 if test -f "$GEO_ASN"; then
     echo "$GEO_ASN exists."
 else
@@ -33,7 +33,7 @@ else
     wget -q -O $GEO_ASN "https://git.io/GeoLite2-ASN.mmdb"
 fi
 
-GEO_CITY=/config/geo/GeoLite2-City.mmdb
+GEO_CITY=/data/geo/GeoLite2-City.mmdb
 if test -f "$GEO_CITY"; then
     echo "$GEO_CITY exists."
 else
@@ -41,7 +41,7 @@ else
     wget -q -O $GEO_CITY "https://git.io/GeoLite2-City.mmdb"
 fi
 
-GEO_COUNTRY=/config/geo/GeoLite2-Country.mmdb
+GEO_COUNTRY=/data/geo/GeoLite2-Country.mmdb
 if test -f "$GEO_COUNTRY"; then
     echo "$GEO_COUNTRY exists."
 else
