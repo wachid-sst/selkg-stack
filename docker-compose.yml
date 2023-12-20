@@ -51,12 +51,12 @@ services:
       - xpack.security.enabled=${ELASTIC_SECURITY:-true}
       - xpack.security.transport.ssl.enabled=${ELASTIC_SECURITY:-true}
       - xpack.security.transport.ssl.verification_mode=certificate 
-      - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/cert/ca/ca.crt
-      - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/cert/es01-labs.crt
-      - xpack.security.transport.ssl.key=/usr/share/elasticsearch/cert/es01-labs.key
+      - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/cert/ca/ca.crt
+      - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/cert/es01-labs.crt
+      - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/cert/es01-labs.key
     volumes:
       - ${PWD}/elasticsearch/elastic-data:/usr/share/elasticsearch/data
-      - ${PWD}/elasticsearch/elastic-cert:/usr/share/elasticsearch/cert
+      - ${PWD}/elasticsearch/elastic-cert:/usr/share/elasticsearch/config/cert
     ulimits:
       memlock:
         soft: -1
