@@ -110,17 +110,20 @@ services:
     container_name: kibana01-labs
     restart: ${RESTART_MODE:-unless-stopped}
     healthcheck:
-      test: ["CMD-SHELL", "curl --user ${ELASTIC_USER:-elastic}:${ELASTIC_PASSWORD:-secret} --silent --fail localhost:5601 || exit 1"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
-      start_period: 30s
+     test:
+       [
+         "CMD-SHELL",
+         "curl -s -I http://localhost:5601 | grep -q 'HTTP/1.1 302 Found'",
+       ]
+     interval: 10s
+     timeout: 10s
+     retries: 120
     env_file:
       - ./.env
     environment:
       - ELASTICSEARCH_HOSTS=${ELASTIC_SCHEME:-https}://${ELASTIC_HOSTNAME:-es01-labs}:${ELASTIC_PORT:-9200}
       - ENCRYPTION_KEY=c34d38b3a14956121ff2170e5030b471551370178f43e5626eec58b04a30fae2
-      - elasticsearch.ssl.verification_mode=none 
+      - ELASTICSEARCH_SSL_VERIFICATIONMODE=${KIBANA_ELASTIC_VERIF:-none}
       - ELASTICSEARCH_USERNAME=${ELASTIC_USERNAME:-elastic}
       - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD:-secret}
     logging:
