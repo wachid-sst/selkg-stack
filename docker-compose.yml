@@ -1,6 +1,5 @@
 version: "3"
 services:
-
   suricata:
     image: suricata-labs:amd-${SURICATA_VERSION:-7.0.2}
     container_name: ${SURICATA_HOSTNAME:-suricata01-labs}
@@ -29,7 +28,7 @@ services:
        - ${PWD}/suricata/suricata-pid:/var/run/suricata-pid
        - ${PWD}/suricata/etc:/etc/suricata
        - ${PWD}/suricata/suricata-logrotate:/etc/logrotate.d
-
+ 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION:-7.17.15}
     container_name: ${ELASTIC_HOSTNAME:-es01-labs}
