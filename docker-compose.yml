@@ -277,10 +277,9 @@ services:
       - selkg-network
 #    env_file:
 #      - /grafana/env-monitoring
-    volumes:
-      - ${PWD}/grafana/data:/var/lib/grafana
 #    env_file: environment/.gfenv
     volumes:
+      - ${PWD}/grafana/data:/var/lib/grafana
       - ${PWD}/grafana/dashboard:/etc/extra-config/grafana
     environment:
       - POSTGRES_USER: postgres     # define credentials
