@@ -301,6 +301,8 @@ services:
       - POSTGRES_DB=grafana        # define database
  #   env_file:
  #       - /postgres/env-postgres
+    networks:
+      - selkg-network
     volumes:
         - ${PWD}/postgres/data:/var/lib/postgresql/data
       
