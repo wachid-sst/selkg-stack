@@ -4,7 +4,7 @@ FROM jasonish/evebox:latest
 ENV EVEBOX_LOGS_DIRECTORY=${EVEBOX_LOGS_DIRECTORY:-/var/logs/evebox}
 ENV EVEBOX_CONFIG_DIRECTORY=${EVEBOX_CONFIG_DIRECTORY:-/etc/evebox}
 
-RUN mkdir -p ${EVEBOX_LOGS_DIRECTORY} && rm /docker-entrypoint.sh && /evebox/etc/evebox.yaml
+RUN mkdir -p ${EVEBOX_LOGS_DIRECTORY} && rm /docker-entrypoint.sh
 #VOLUME ${EVEBOX_DATA_DIRECTORY}
 VOLUME ${EVEBOX_LOGS_DIRECTORY}
 VOLUME ${EVEBOX_CONFIG_DIRECTORY}
