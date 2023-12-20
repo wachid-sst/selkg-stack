@@ -200,8 +200,12 @@ services:
       - "443:443"  
 
   scirius:
-    container_name: scirius-labs
-    image: ghcr.io/stamusnetworks/scirius:${SCIRIUS_VERSION:-selks}
+    container_name: scirius-labs:${SCIRIUS_VERSION:-3.5.0}
+    image: scirius-labs:${SCIRIUS_VERSION:-3.5.0}
+    build:
+      dockerfile: ./scirius/Dockerfile-${SCIRIUS_ARCH:-amd64}
+      tags:
+        - scirius-labs:${SCIRIUS_VERSION:-3.5.0}
     restart: ${RESTART_MODE:-unless-stopped}
     environment:
       - SECRET_KEY=${SCIRIUS_SECRET_KEY:-inipasswodnyarahasia}
