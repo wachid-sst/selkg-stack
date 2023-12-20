@@ -267,6 +267,42 @@ services:
       - "8005:8005"  
     networks:
       - selkg-network
+
+  grafana:
+    image: grafana/grafana-oss:10.2.0
+    container_name: grafana-labs
+    ports:
+      - '3000:3000'
+    networks:
+      - selkg-network
+#    env_file:
+#      - /grafana/env-monitoring
+    volumes:
+      - ${PWD}/grafana/data:/var/lib/grafana
+#    env_file: environment/.gfenv
+    volumes:
+      - ${PWD}/grafana/dashboard:/etc/extra-config/grafana
+    environment:
+      - POSTGRES_USER: postgres     # define credentials
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,briangann-gauge-panel,natel-plotly-panel,grafana-simple-json-datasource
+      - GF_SECURITY_ADMIN_PASSWORD=secret
+      - GF_USERS_ALLOW_SIGN_UP=false
+#      - GF_DASHBOARDS_JSON_ENABLED=true
+#      - GF_DASHBOARDS_JSON_PATH=./docker-compose.d/grafana
+      
+#    command: ./etc/extra-config/grafana/post.sh
+  # we will use postgres as datasource.
+  postgres:
+    image: postgres:14
+    container_name: postgres-labs
+    environment:
+      - POSTGRES_USER: postgres     # define credentials
+      - POSTGRES_PASSWORD: passpost # define credentials
+      - POSTGRES_DB: grafana        # define database
+ #   env_file:
+ #       - /postgres/env-postgres
+    volumes:
+        - ${PWD}/postgres/data:/var/lib/postgresql/data
       
 networks:
   selkg-network:
