@@ -43,7 +43,7 @@ database:
     # Env: EVEBOX_ELASTICSEARCH_URL
     url: http://es01-labs:9200
     index: logstash
-    disable-certificate-check: false
+    disable-certificate-check: true
 
     # If using the Filebeat Suricata module this needs to be true.
     #ecs: false
@@ -132,7 +132,7 @@ event-services:
       - alert
 
     # URL template. All eve values can be used.
-    url: https://10.16.1.179/rules/rule/{{alert.signature_id}}
+    url: http://scirius-labs/rules/rule/{{alert.signature_id}}
 
   # Custom service to link to Dumpy for full packet capture.
   #

@@ -145,25 +145,34 @@ services:
 
   evebox:
     container_name: evebox-labs
-#    image: evebox-labs:amd-0.17.2
-    image: jasonish/evebox:latest
+    image: evebox-labs:${EVEBOX_VERSION:-0.17.2}
+#    image: jasonish/evebox:latest
 #    command: ["-e", "${ELASTIC_SCHEME:-http}://${ELASTIC_HOSTNAME:-es01-labs}:${ELASTIC_PORT:-9200}"]
-#    build:
-#      dockerfile: ./evebox/Dockerfile-${EVEBOX_ARCH:-amd64}
-#      tags:
-#        - evebox-labs:amd-0.17.2
-#      args:
-#        - EVEBOX_SRC=${EVEBOX_SRC:-./dist/evebox-0.17.2-linux-x64/evebox}
-#        - EVEBOX_BASE=${EVEBOX_BASE:-amd64/alpine}
-#        - EVEBOX_DATA_DIRECTORY=${EVEBOX_DATA_DIRECTORY:-/var/lib/evebox}
+    build:
+      dockerfile: ./evebox/Dockerfile-${EVEBOX_ARCH:-amd64}
+      tags:
+        - evebox-labs:${EVEBOX_VERSION:-0.17.2}
+      args:
+        - EVEBOX_SRC=${EVEBOX_SRC:-./dist/evebox-0.17.2-linux-x64/evebox}
+        - EVEBOX_BASE=${EVEBOX_BASE:-amd64/alpine}
+        - EVEBOX_DATA_DIRECTORY=${EVEBOX_DATA_DIRECTORY:-/var/lib/evebox}
     command: ["-c", "/etc/evebox/evebox.yaml", "-vv"]
+    healthcheck:
+      test: ["CMD-SHELL", "curl --silent --fail localhost:5636/#/inbox || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
     restart: ${RESTART_MODE:-unless-stopped}
     environment:
       - EVEBOX_HTTP_TLS_ENABLED=false
       - EVEBOX_AUTHENTICATION_REQUIRED=true
+      - EVEBOX_DATA_DIRECTORY=${EVEBOX_DATA_DIRECTORY:-/var/lib/evebox}
+      - EVEBOX_LOGS_DIRECTORY=${EVEBOX_LOGS_DIRECTORY:-/var/log/evebox}
     volumes:
-      - ${PWD}/evebox/etc/evebox.yaml:/etc/evebox/evebox.yaml
-      - ${PWD}/evebox/var:/var/lib/evebox      
+      - ${PWD}/evebox/etc:/etc/evebox
+      - ${PWD}/evebox/var:/var/lib/evebox
+      - ${PWD}/suricata/logs:/var/logs/evebox
     ports:
       - "5636:5636"
     networks:
@@ -191,8 +200,12 @@ services:
       - "443:443"  
 
   scirius:
-    container_name: scirius-labs
-    image: ghcr.io/stamusnetworks/scirius:${SCIRIUS_VERSION:-selks}
+    container_name: scirius-lab
+    image: scirius-labs:${SCIRIUS_VERSION:-3.5.0}
+    build:
+      dockerfile: ./scirius/Dockerfile-${SCIRIUS_ARCH:-amd64}
+      tags:
+        - scirius-labs:${SCIRIUS_VERSION:-3.5.0}
     restart: ${RESTART_MODE:-unless-stopped}
     environment:
       - SECRET_KEY=${SCIRIUS_SECRET_KEY:-inipasswodnyarahasia}
@@ -221,6 +234,37 @@ services:
       - ${PWD}/suricata/logs-fpc:/var/log/suricata/fpc:ro
     ports:
       - "8000:8000"  
+    networks:
+      - selkg-network
+
+  arkime:
+    image: arkime-labs:${ARKIME_VERSION:-4.6.0}
+    container_name: arkime-labs
+    build:
+      dockerfile: ./arkime/Dockerfile-${ARKIME_ARCH:-amd64}
+      tags:
+        - arkime-labs:${ARKIME_VERSION:-4.6.0}
+      args:
+        - ARKIME_VERSION=${ARKIME_VERSION:-4.6.0}
+        - ARKIME_ARCH=${ARKIME_ARCH:-amd64}
+    restart: ${RESTART_MODE:-no}
+    volumes:
+      - ${PWD}/suricata/logs:/suricata-logs:ro
+      - ${PWD}/suricata/logs-fpc:/suricata-logs/fpc
+      - ${PWD}/arkime/arkime-config:/data/config
+      - ${PWD}/arkime/arkime-geo:/data/geo
+      - ${PWD}/arkime/arkime-pcap:/data/pcap
+      - ${PWD}/arkime/arkime-logs:/opt/arkime/logs
+      - ${PWD}/arkime/arkime-raw:/data/raw
+#      - ${PWD}/arkime/etc:/opt/arkime/etc
+    environment:
+      - ES_HOST=${PT_ELASTIC_HOSTNAME:-nginx-labs}
+      - ES_PORT=${PT_ELASTIC_PORT:-8200}
+      - ARKIME_ADMIN_USERNAME=${ARKIME_ADMIN_USERNAME:-arkime}
+      - ARKIME_ADMIN_PASSWORD=${ARKIME_ADMIN_PASSWORD:-secret}
+      - ARKIME_DIR=${ARKIME_DIR:-/opt/arkime}
+    ports:
+      - "8005:8005"  
     networks:
       - selkg-network
       

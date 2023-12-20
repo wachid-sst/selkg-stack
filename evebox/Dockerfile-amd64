@@ -1,18 +1,22 @@
-ARG EVEBOX_BASE
-FROM ${EVEBOX_BASE:-amd64/alpine}
+FROM jasonish/evebox:latest
 
-RUN apk update && apk add tzdata
+#ENV EVEBOX_DATA_DIRECTORY=${EVEBOX_DATA_DIRECTORY:-/var/lib/evebox}
+ENV EVEBOX_LOGS_DIRECTORY=${EVEBOX_LOGS_DIRECTORY:-/var/logs/evebox}
+ENV EVEBOX_CONFIG_DIRECTORY=${EVEBOX_CONFIG_DIRECTORY:-/etc/evebox}
 
-ARG SRC="./dist/evebox-latest-linux-x64/evebox"
-COPY $EVEBOX_SRC /bin/evebox
+RUN apk add --no-cache --update curl && mkdir -p ${EVEBOX_LOGS_DIRECTORY} && mkdir ${EVEBOX_CONFIG_DIRECTORY} && rm /docker-entrypoint.sh
+#VOLUME ${EVEBOX_DATA_DIRECTORY}
 
-ENV EVEBOX_HTTP_HOST=0.0.0.0
-ENV TZ=UTC
-
-ENV EVEBOX_DATA_DIRECTORY=${EVEBOX_DATA_DIRECTORY:-/var/lib/evebox}
-RUN mkdir ${EVEBOX_DATA_DIRECTORY}
-VOLUME ${EVEBOX_DATA_DIRECTORY}
+VOLUME ${EVEBOX_LOGS_DIRECTORY}
+VOLUME ${EVEBOX_CONFIG_DIRECTORY}
 
 COPY /evebox/docker-entrypoint.sh /docker-entrypoint.sh
+
+COPY /evebox/config/evebox.yaml /etc/evebox/
+
+# RUN chmod +x /docker-entrypoint.sh && chmod +x /bin/evebox
+
+RUN ["chmod", "+x", "/docker-entrypoint.sh"]
+
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["/bin/evebox"]

@@ -1,0 +1,26 @@
+ARG EVEBOX_BASE
+FROM ${EVEBOX_BASE:-amd64/alpine}
+
+RUN apk update && apk add tzdata
+
+ARG SRC="./dist/evebox-latest-linux-x64/evebox"
+COPY $EVEBOX_SRC /bin/evebox
+
+ENV EVEBOX_HTTP_HOST=0.0.0.0
+ENV TZ=UTC
+
+ENV EVEBOX_DATA_DIRECTORY=${EVEBOX_DATA_DIRECTORY:-/var/lib/evebox}
+ENV EVEBOX_LOGS_DIRECTORY=${EVEBOX_LOGS_DIRECTORY:-/var/logs/evebox}
+
+RUN mkdir -p ${EVEBOX_DATA_DIRECTORY} && mkdir -p ${EVEBOX_LOGS_DIRECTORY}
+VOLUME ${EVEBOX_DATA_DIRECTORY}
+VOLUME ${EVEBOX_LOGS_DIRECTORY}
+
+COPY /evebox/docker-entrypoint.sh /docker-entrypoint.sh
+
+# RUN chmod +x /docker-entrypoint.sh && chmod +x /bin/evebox
+
+RUN ["chmod", "+x", "/docker-entrypoint.sh"] && ["chmod", "+x", "/bin/evebox"]
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["/bin/evebox"]

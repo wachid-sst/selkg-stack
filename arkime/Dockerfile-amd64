@@ -6,42 +6,47 @@ ARG ARKIME_VERSION=4.6.0-1
 ARG UBUNTU_VERSION=22.04
 ARG ARKIME_DEB_PACKAGE="arkime_"$ARKIME_VERSION"-1_amd64.deb"
 
+ENV DEBIAN_FRONTEND noninteractive
+
 # Declare envs vars for each arg
-ENV ARKIME_VERSION $ARKIME_VERSION
-ENV ES_HOST "nginx-labs"
-ENV ES_PORT 8200
-ENV ARKIME_ADMIN_USERNAME "suricata"
-ENV ARKIME_ADMIN_PASSWORD "security"
-ENV ARKIME_HOSTNAME "arkime"
-ENV ARKIMEDIR "/opt/arkime"
+ENV ARKIME_VERSION ${ARKIME_VERSION:-4.6.0}
+ENV ES_HOST ${ES_HOST:-nginx-labs}
+ENV ES_PORT ${ES_PORT:-8200}
+ENV ARKIME_ADMIN_USERNAME ${ARKIME_ADMIN_USERNAME:-arkime}
+ENV ARKIME_ADMIN_PASSWORD ${ARKIME_ADMIN_PASSWORD:-secret}
+ENV ARKIME_HOSTNAME ${ARKIME_HOSTNAME:-arkime}
+ENV ARKIME_DIR ${ARKIME_DIR:-/opt/arkime}
 
 # Add entrypoint
 COPY /arkime/start-arkimeviewer.sh /start-arkimeviewer.sh
+# COPY /arkime/config.ini /config.ini
+  COPY /arkime/config /config
 
 # Install Arkime
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y curl libmagic-dev wget logrotate dialog apt-utils && \
+    apt-get install -y apt-utils curl libmagic-dev wget logrotate dialog && \
     mkdir -p /data && \
     mkdir -p /suricata-logs && \
     cd /data && \
     wget -q "https://s3.amazonaws.com/files.molo.ch/builds/ubuntu-"$UBUNTU_VERSION"/"$ARKIME_DEB_PACKAGE && \
     apt-get install -y ./$ARKIME_DEB_PACKAGE && \
-    mv $ARKIMEDIR/etc /data/config && \
-    ln -s /data/config $ARKIMEDIR/etc && \
-    ln -s /data/logs $ARKIMEDIR/logs && \
-    ln -s /data/pcap $ARKIMEDIR/raw && \
-    wget -q -O /data/config/oui.txt "https://www.wireshark.org/download/automated/data/manuf"  && \
+    mv $ARKIME_DIR/etc /data/config && \
+    ln -s /data/config $ARKIME_DIR/etc && \
+    ln -s /data/logs $ARKIME_DIR/logs && \
+    ln -s /data/pcap $ARKIME_DIR/raw && \
+    ln -s /data/geo $ARKIME_DIR/geo && \
+    wget -q -O /config/oui.txt "https://www.wireshark.org/download/automated/data/manuf"  && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/* && \
     rm /data/$ARKIME_DEB_PACKAGE && \
-    $ARKIMEDIR/bin/arkime_update_geo.sh && \
+    $ARKIME_DIR/bin/arkime_update_geo.sh && \
     chmod 755 /start-arkimeviewer.sh && \
-    mkdir -p /readpcap
+    mkdir -p /readpcap 
+#&& \
+#    echo "set config" && \
+#    mv /config.ini /data/config/
 
-# add config
-COPY /arkime/arkimepcapread-selks-config.ini /data/config/config.ini
-
-VOLUME ["/data/pcap", "/data/config", "/data/logs"]
+VOLUME ["/data/pcap", "/data/config", "/data/logs", "/data/geo"]
 EXPOSE 8005
-WORKDIR $ARKIMEDIR
+WORKDIR $ARKIME_DIR
 
 ENTRYPOINT ["/start-arkimeviewer.sh"]
