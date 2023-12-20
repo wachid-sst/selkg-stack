@@ -200,7 +200,7 @@ services:
       - "443:443"  
 
   scirius:
-    container_name: scirius-labs:${SCIRIUS_VERSION:-3.5.0}
+    container_name: scirius-lab
     image: scirius-labs:${SCIRIUS_VERSION:-3.5.0}
     build:
       dockerfile: ./scirius/Dockerfile-${SCIRIUS_ARCH:-amd64}
