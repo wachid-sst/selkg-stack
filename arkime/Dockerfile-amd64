@@ -39,7 +39,8 @@ RUN apt-get update && \
 # Add entrypoint
   COPY /arkime/start-arkimeviewer.sh /start-arkimeviewer.sh
   COPY /arkime/config.ini /data/config/
-  
+
+RUN chmod +x /start-arkimeviewer.sh  
 
 VOLUME ["/data/pcap", "/data/config", "/data/logs", "/data/geo"]
 EXPOSE 8005
