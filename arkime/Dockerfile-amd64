@@ -17,11 +17,6 @@ ENV ARKIME_ADMIN_PASSWORD ${ARKIME_ADMIN_PASSWORD:-secret}
 ENV ARKIME_HOSTNAME ${ARKIME_HOSTNAME:-arkime}
 ENV ARKIME_DIR ${ARKIME_DIR:-/opt/arkime}
 
-# Add entrypoint
-COPY /arkime/start-arkimeviewer.sh /start-arkimeviewer.sh
-# COPY /arkime/config.ini /config.ini
-  COPY /arkime/config /config
-
 # Install Arkime
 RUN apt-get update && \
     apt-get install -y apt-utils curl libmagic-dev wget logrotate dialog && \
@@ -41,9 +36,11 @@ RUN apt-get update && \
     $ARKIME_DIR/bin/arkime_update_geo.sh && \
     chmod 755 /start-arkimeviewer.sh && \
     mkdir -p /readpcap 
-#&& \
-#    echo "set config" && \
-#    mv /config.ini /data/config/
+
+# Add entrypoint
+  COPY /arkime/start-arkimeviewer.sh /start-arkimeviewer.sh
+  COPY /arkime/config.ini /data/config/
+  
 
 VOLUME ["/data/pcap", "/data/config", "/data/logs", "/data/geo"]
 EXPOSE 8005
