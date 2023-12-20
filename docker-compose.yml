@@ -157,6 +157,12 @@ services:
         - EVEBOX_BASE=${EVEBOX_BASE:-amd64/alpine}
         - EVEBOX_DATA_DIRECTORY=${EVEBOX_DATA_DIRECTORY:-/var/lib/evebox}
     command: ["-c", "/etc/evebox/evebox.yaml", "-vv"]
+    healthcheck:
+      test: ["CMD-SHELL", "curl --silent --fail localhost:5636/ || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
     restart: ${RESTART_MODE:-unless-stopped}
     environment:
       - EVEBOX_HTTP_TLS_ENABLED=false
