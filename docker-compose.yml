@@ -127,7 +127,7 @@ services:
       - XPACK_SECURITY_ENCRYPTIONKEY=${ENCRYPTION_KEY:-qwerty56789}
       - XPACK_ENCRYPTEDSAVEDOBJECTS_ENCRYPTIONKEY=${ENCRYPTION_KEY:-qwerty56789}
       - XPACK_REPORTING_ENCRYPTIONKEY=${ENCRYPTION_KEY:-qwerty56789}
-   mem_limit: ${KB_MEM_LIMIT:-1024}
+    mem_limit: ${KB_MEM_LIMIT:-1024}
     logging:
       driver: "fluentd"
       options:
