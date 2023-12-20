@@ -35,7 +35,7 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 # Melakukan update package:
-apt update
+apt update -y
 # Melakukan instalasi package docker
 apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 # Check informasi versi docker
