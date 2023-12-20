@@ -1,9 +1,9 @@
 FROM nginx:alpine
 
-RUN mkdir /etc/nginx/ssl && mkdir /etc/nginx/sites-enable
+RUN mkdir /etc/nginx/ssl && mkdir /etc/nginx/sites-enabled
 
 COPY /nginx/conf.d/default.conf /etc/nginx/conf.d/
-COPY /nginx/sites-enable/ /etc/nginx/sites-enable/
+COPY /nginx/sites-enabled/ /etc/nginx/sites-enabled
 
 #&& mkdir -p /www/html/static
 COPY /nginx/ssl/ /etc/nginx/ssl/
