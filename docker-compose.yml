@@ -110,14 +110,14 @@ services:
     container_name: kibana01-labs
     restart: ${RESTART_MODE:-unless-stopped}
     healthcheck:
-     test:
+      test:
        [
          "CMD-SHELL",
          "curl -s -I http://localhost:5601 | grep -q 'HTTP/1.1 302 Found'",
        ]
-     interval: 10s
-     timeout: 10s
-     retries: 120
+      interval: 10s
+      timeout: 10s
+      retries: 120
     env_file:
       - ./.env
     environment:
