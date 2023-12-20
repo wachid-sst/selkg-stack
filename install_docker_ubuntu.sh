@@ -40,9 +40,12 @@ apt update -y
 apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 # Check informasi versi docker
 docker --version
+
+# Mensetting aplikasi docker berjalan di start up
+systemctl enable docker
+
 # Check informasi status service docker
 systemctl status docker
 Untuk menjalankan service docker, jalankan perintah berikut
 systemctl start docker
-# Mensetting aplikasi docker berjalan di start up
-systemctl enable docker
+
