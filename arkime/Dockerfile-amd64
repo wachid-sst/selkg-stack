@@ -38,7 +38,7 @@ RUN apt-get update && \
 
 # Add entrypoint
   COPY /arkime/start-arkimeviewer.sh /start-arkimeviewer.sh
-  COPY /arkime/config.ini /data/config/
+  COPY /arkime/config/config.ini /data/config/config.ini
 
 RUN chmod +x /start-arkimeviewer.sh  
 
