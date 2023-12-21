@@ -47,6 +47,7 @@ services:
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
       - ELASTICSEARCH_HOSTS=${ELASTIC_HOSTNAME:-es01-labs}
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD:-secret}
+      - cluster.name=${ELASTIC_CLUSTERNAME:-elasticsearch_cluster}
       - xpack.security.enabled=${ELASTIC_SECURITY:-true}
       - xpack.security.http.ssl.enabled=true
       - xpack.security.http.ssl.verification_mode=none
