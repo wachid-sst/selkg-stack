@@ -43,7 +43,10 @@ services:
       - ./.env
     environment: 
       - bootstrap.memory_lock=true
-      - discovery.type=single-node
+#      - discovery.type=single-node
+      - node.name=es01-labs
+      - discovery.seed_hosts=es01-labs
+      - cluster.initial_master_nodes=es01-labs
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
       - ELASTICSEARCH_HOSTS=${ELASTIC_HOSTNAME:-es01-labs}
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD:-secret}
