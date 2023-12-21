@@ -48,6 +48,7 @@ services:
       - ELASTICSEARCH_HOSTS=${ELASTIC_HOSTNAME:-es01-labs}
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD:-secret}
       - node.name=es01-labs
+      - transport.port=9300
       - discovery.seed_hosts=es01-labs
       - cluster.initial_master_nodes=es01-labs
       - cluster.name=${ELASTIC_CLUSTERNAME:-elasticsearch_cluster}
