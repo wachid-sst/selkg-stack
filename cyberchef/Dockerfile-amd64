@@ -3,6 +3,7 @@ FROM docker.io/node:17 as build
 LABEL maintainer="Martijn Pepping <martijn.pepping@automiq.nl>"
 
 ARG CYBERCHEF_VERSION
+ENV CYBERCHEF_VERSION=${CYBERCHEF_VERSION:-v10.5.2}
 
 RUN chown -R node:node /srv
 
