@@ -2,14 +2,14 @@ FROM docker.io/node:17 as build
 
 LABEL maintainer="Martijn Pepping <martijn.pepping@automiq.nl>"
 
-ARG VERSION
+ARG CYBERCHEF_VERSION
 
 RUN chown -R node:node /srv
 
 USER node
 WORKDIR /srv
 
-RUN git clone -b "$VERSION" --depth=1 https://github.com/gchq/CyberChef.git .
+RUN git clone -b "$CYBERCHEF_VERSION" --depth=1 https://github.com/gchq/CyberChef.git .
 RUN npm install
 
 ENV NODE_OPTIONS="--max-old-space-size=2048"
