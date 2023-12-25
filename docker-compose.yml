@@ -3,6 +3,7 @@ services:
   suricata:
     image: suricata-labs:amd-${SURICATA_VERSION:-7.0.2}
     container_name: ${SURICATA_HOSTNAME:-suricata01-labs}
+    hostname: ${SURICATA_HOSTNAME:-suricata01-labs}
     build:
       dockerfile: ./suricata/Dockerfile-${SURICATA_ARCH:-amd64}
       tags:
@@ -32,6 +33,7 @@ services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION:-7.17.15}
     container_name: ${ELASTIC_HOSTNAME:-es01-labs}
+    hostname: ${ELASTIC_HOSTNAME:-es01-labs}
     restart: ${RESTART_MODE:-unless-stopped}
     healthcheck:
       test: ["CMD-SHELL", "curl --user ${ELASTIC_USER:-elastic}:${ELASTIC_PASSWORD:-secret} --silent --fail https://localhost:9200/_cluster/health -k || exit 1"]
@@ -78,8 +80,9 @@ services:
       - "9300:9300"
 
   logstash:
-    container_name: ${LOGSTASH_HOSTNAME:-logstash01-labs}
     image:  logstash-labs:${LOGSTASH_VERSION:-7.17.15}
+    container_name: ${LOGSTASH_HOSTNAME:-logstash01-labs}
+    hostname: ${LOGSTASH_HOSTNAME:-logstash01-labs}
     build:
       dockerfile: ./logstash/Dockerfile
       tags:
@@ -112,7 +115,8 @@ services:
 
   kibana:
     image: docker.elastic.co/kibana/kibana:${KIBANA_VERSION:-7.17.15}
-    container_name: kibana01-labs
+    container_name: ${KIBANA_HOSTNAME:-kibana01-labs}
+    hostname: ${KIBANA_HOSTNAME:-kibana01-labs}
     restart: ${RESTART_MODE:-unless-stopped}
     healthcheck:
       test:
@@ -146,7 +150,8 @@ services:
 
   fluentd:
     image: fluend-labs:alphine-1.16.1
-    container_name: fluentd-labs
+    container_name: ${FLUENTD_HOSTNAME:-fluentd-labs}
+    hostname: ${FLUENTD_HOSTNAME:-fluentd-labs}
     build:
       dockerfile: ./fluentd/Dockerfile-${FLUENTD_ARCH:-amd64}
       tags:
@@ -168,10 +173,9 @@ services:
       - "24224:24224/udp"
 
   evebox:
-    container_name: evebox-labs
     image: evebox-labs:${EVEBOX_VERSION:-0.17.2}
-#    image: jasonish/evebox:latest
-#    command: ["-e", "${ELASTIC_SCHEME:-http}://${ELASTIC_HOSTNAME:-es01-labs}:${ELASTIC_PORT:-9200}"]
+    container_name: ${EVEBOX_HOSTNAME:-evebox-labs}
+    hostname: ${EVEBOX_HOSTNAME:-evebox-labs}
     build:
       dockerfile: ./evebox/Dockerfile-${EVEBOX_ARCH:-amd64}
       tags:
@@ -204,7 +208,8 @@ services:
 
   nginx:
     image: nginx-labs:alphine-1.16.1
-    container_name: nginx-labs
+    container_name: ${NGINX_HOSTNAME:-nginx-labs}
+    hostname: ${NGINX_HOSTNAME:-nginx-labs}
     build:
       dockerfile: ./nginx/Dockerfile-${NGINX_ARCH:-amd64}
       tags:
@@ -231,8 +236,9 @@ services:
       - "443:443"  
 
   scirius:
-    container_name: scirius-labs
     image: scirius-labs:${SCIRIUS_VERSION:-3.5.0}
+    container_name: ${SCIRIUS_HOSTNAME:-scirius-labs}
+    hostname: ${SCIRIUS_HOSTNAME:-scirius-labs}
     build:
       dockerfile: ./scirius/Dockerfile-${SCIRIUS_ARCH:-amd64}
       tags:
@@ -270,8 +276,8 @@ services:
 
   arkime:
     image: arkime-labs:${ARKIME_VERSION:-4.6.0}
-    container_name: arkime-labs
-    hostname: arkime-labs
+    container_name: ${ARKIME_HOSTNAME:-arkime-labs}
+    hostname: ${ARKIME_HOSTNAME:-arkime-labs}
     build:
       dockerfile: ./arkime/Dockerfile-${ARKIME_ARCH:-amd64}
       tags:
@@ -302,8 +308,8 @@ services:
 
   grafana:
     image: grafana/grafana-oss:10.2.0
-    container_name: grafana-labs
-    hostname: grafana-labs
+    container_name: ${GRAFANA_HOSTNAME:-grafana-labs}
+    hostname: ${GRAFANA_HOSTNAME:-grafana-labs}
     ports:
       - '3000:3000'
     networks:
@@ -327,7 +333,8 @@ services:
   # we will use postgres as datasource.
   postgres:
     image: postgres:14
-    container_name: postgres-labs
+    container_name: ${POSTGRES_HOSTNAME:-postgres-labs}
+    hostname: ${POSTGRES_HOSTNAME:-postgres-labs}    
     environment:
       - POSTGRES_USER=postgres     # define credentials
       - POSTGRES_PASSWORD=passpost # define credentials
