@@ -244,6 +244,8 @@ services:
       dockerfile: ./cyberchef/Dockerfile-${NGINX_ARCH:-amd64}
       tags:
         - "cyberchef-labs:v10.5.2"
+    environment:
+      - CYBERCHEF_VERSION=${CYBERCHEF_VERSION:-v10.5.2}  
 #    healthcheck:
 #      test: ["CMD-SHELL", "curl --silent --fail http://localhost || exit 1"]
 #      interval: 10s
